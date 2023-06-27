@@ -141,7 +141,7 @@ function Toolkits() {
     if (lenspostModel && lenscollectionModel) {
       const lensClient = new LensClient({
         modelIds: {
-          [LensModelType.Post]: lenspostModel.stream_id,
+          [LensModelType.Publication]: lenspostModel.stream_id,
           [LensModelType.Collection]: lenscollectionModel.stream_id,
         },
         runtimeConnector,
@@ -621,10 +621,10 @@ function Toolkits() {
     console.log("[collectWithSig]res:", res);
   };
 
-  const getPersistedPosts = async () => {
-    const res = await lensClientRef.current?.getPersistedPosts();
-    console.log("[getPersistedPosts]res:", res);
-  };
+  const getPersistedPublications = async () => {
+    const res = await lensClientRef.current?.getPersistedPublications();
+    console.log("[getPersistedPublications]res:", res);
+  }
 
   const getPersistedCollections = async () => {
     const res = await lensClientRef.current?.getPersistedCollections();
@@ -716,7 +716,7 @@ function Toolkits() {
       <button onClick={mirrorWithSig}>mirrorWithSig</button>
       <button onClick={collect}>collect</button>
       <button onClick={collectWithSig}>collectWithSig</button>
-      <button onClick={getPersistedPosts}>getPersistedPosts</button>
+      <button onClick={getPersistedPublications}>getPersistedPublications</button>
       <button onClick={getPersistedCollections}>getPersistedCollections</button>
       <br />
     </div>
