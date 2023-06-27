@@ -409,22 +409,11 @@ function Toolkits() {
   };
 
   // Lens
-  const getProfiles = async () => {
-    if (!address) {
-      return;
-    }
-    const res = await lensClientRef.current?.getProfiles(address);
-    console.log("[getprofiles]res:", res);
-    if (res.length > 0) {
-      setProfileId(res[0].id);
-    }
-  };
-
   const createProfile = async () => {
     if (!address) {
       return;
     }
-    const handle = "nicknametommmmy";
+    const handle = "nickname" + Date.now();
     if (!/^[\da-z]{5,26}$/.test(handle) || handle.length > 26) {
       throw "Only supports lower case characters, numbers, must be minimum of 5 length and maximum of 26 length";
     }
@@ -437,11 +426,23 @@ function Toolkits() {
     console.log("createProfile res:", res);
   };
 
+  const getProfiles = async () => {
+    if (!address) {
+      return;
+    }
+    const res = await lensClientRef.current?.getProfiles(address);
+    console.log("[getprofiles]res:", res);
+    if (res.length > 0) {
+      setProfileId(res[res.length - 1].id);
+    }
+  };
+
   const post = async () => {
     if (!profileId) {
       return;
     }
-    const collectModule = lensClientRef.current?.lensContractsAddress.FreeCollectModule;
+    const collectModule =
+      lensClientRef.current?.lensContractsAddress.FreeCollectModule;
     const collectModuleInitData = ethers.utils.defaultAbiCoder.encode(
       ["bool"],
       [false]
@@ -462,7 +463,8 @@ function Toolkits() {
     if (!profileId) {
       return;
     }
-    const collectModule = lensClientRef.current?.lensContractsAddress.FreeCollectModule;
+    const collectModule =
+      lensClientRef.current?.lensContractsAddress.FreeCollectModule;
     const collectModuleInitData = ethers.utils.defaultAbiCoder.encode(
       ["bool"],
       [false]
@@ -497,8 +499,8 @@ function Toolkits() {
     const collectModule = await lensClientRef.current?.getCollectModule({
       profileId: profileIdPointed,
       pubId: pubIdPointed,
-    })
-    
+    });
+
     const commentData: CommentData = {
       profileId,
       contentURI: "https://github.com/dataverse-os",
@@ -532,8 +534,8 @@ function Toolkits() {
     const collectModule = await lensClientRef.current?.getCollectModule({
       profileId: profileIdPointed,
       pubId: pubIdPointed,
-    })
-    
+    });
+
     const commentData: CommentData = {
       profileId,
       contentURI: "https://github.com/dataverse-os",
@@ -622,19 +624,19 @@ function Toolkits() {
   const getPersistedPosts = async () => {
     const res = await lensClientRef.current?.getPersistedPosts();
     console.log("[getPersistedPosts]res:", res);
-  }
+  };
 
   const getPersistedCollections = async () => {
     const res = await lensClientRef.current?.getPersistedCollections();
     console.log("[getPersistedCollections]res:", res);
-  }
+  };
 
   return (
     <div className="App">
       <button onClick={connect}>connect</button>
       <div className="blackText">{pkh}</div>
       <hr />
-      
+
       <h2 className="label">Push Channel</h2>
       <button onClick={getUserSubscriptions}>getUserSubscriptions</button>
       <button onClick={getUserSpamNotifications}>
@@ -697,14 +699,15 @@ function Toolkits() {
       <br />
 
       <h2 className="label">Lens</h2>
+      <button onClick={createProfile}>createProfile</button>
+      <button onClick={getProfiles}>getProfiles</button>
       <input
         type="text"
         value={profileId || ""}
         placeholder="profileId"
         onChange={(event) => setProfileId(event.target.value)}
+        readOnly
       />
-      <button onClick={getProfiles}>getProfiles</button>
-      <button onClick={createProfile}>createProfile</button>
       <button onClick={post}>post</button>
       <button onClick={postWithSig}>postWithSig</button>
       <button onClick={comment}>comment</button>
@@ -716,7 +719,6 @@ function Toolkits() {
       <button onClick={getPersistedPosts}>getPersistedPosts</button>
       <button onClick={getPersistedCollections}>getPersistedCollections</button>
       <br />
-
     </div>
   );
 }
