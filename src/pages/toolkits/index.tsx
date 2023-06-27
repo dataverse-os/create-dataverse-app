@@ -26,10 +26,19 @@ import LensClient, {
   ModelType as LensModelType,
   PostData,
 } from "@dataverse/lens-client-toolkit";
+
+import {
+  SnapshotClient,
+  ModelType as snapshotModelType,
+  SNAP_SHOT_HUB,
+  OrderDirection, GetActionParams, State, GetProposalsParams, Strategy, now
+} from "@dataverse/snapshot-client-toolkit"
+
 import { Network } from "@dataverse/tableland-client-toolkit";
 import { LivepeerWidget, LivepeerPlayer } from "../../components/Livepeer";
 import { getModelByName } from "../../utils";
 import { ethers } from "ethers";
+import {Proposal, Vote} from "../../../../toolkits-develop/external-toolkit-xmtp/packages/snapshot-client/src";
 
 function Toolkits() {
   const { runtimeConnector, output } = useConfig();
@@ -40,6 +49,7 @@ function Toolkits() {
   const tablelandClientRef = useRef<TablelandClient>();
   const xmtpClientRef = useRef<XmtpClient>();
   const lensClientRef = useRef<LensClient>();
+  const snapshotClientRef = useRef<SnapshotClient>();
   const [tableId, setTableId] = useState<string>();
   const [tableName, setTableName] = useState<string>();
   const [asset, setAsset] = useState<any>(null);
@@ -71,6 +81,10 @@ function Toolkits() {
     const lenspostModel = getModelByName(`${appSlug}_lenspost`);
 
     const lenscollectionModel = getModelByName(`${appSlug}_lenscollection`);
+
+    const snapshotproposalModel = getModelByName(`${appSlug}_snapshotproposal`);
+
+    const snapshotvoteModel = getModelByName(`${appSlug}_snapshotvote`);
 
     if (pushChatMessageModel) {
       const pushChatClient = new PushChatClient({
@@ -148,6 +162,19 @@ function Toolkits() {
         network: LensNetwork.MumbaiTestnet,
       });
       lensClientRef.current = lensClient;
+    }
+
+    if (snapshotproposalModel) {
+      const snapshotClient = new SnapshotClient({
+        runtimeConnector,
+        modelIds: {
+          [snapshotModelType.PROPOSAL]: snapshotproposalModel?.stream_id!,
+          [snapshotModelType.VOTE]: snapshotvoteModel?.stream_id!,
+        },
+        appName: output.createDapp.name,
+        env: SNAP_SHOT_HUB.dev,
+      });
+      snapshotClientRef.current = snapshotClient;
     }
   }, []);
 
@@ -631,6 +658,84 @@ function Toolkits() {
     console.log("[getPersistedCollections]res:", res);
   };
 
+  const createProposal = async () => {
+    const ONE_DAY = 24 * 60 * 60;
+    const test_proposal = {
+      space: 'toolkits.eth',
+      type: 'single-choice', // define the voting system
+      title: 'p_15',
+      body: 'proposal_p_15',
+      choices: ['option01', 'option02', 'option03'],
+      discussion: "",
+      start: now(),
+      end: now() + ONE_DAY,
+      snapshot: 17561820,
+      plugins: JSON.stringify({}),
+      app: 'my-app-01' // provide the name of your project which is using this snapshot.js integration
+    } as Proposal;
+
+    const res = await snapshotClientRef.current!.createProposal(test_proposal);
+    console.log("[createProposal]res:", res);
+  }
+
+  const vote = async () => {
+    const test_vote =
+      {
+        space: 'toolkits.eth',
+        proposal: '0xb3df03c9b6ee68fa5bf9da05e0b1ebc826ef554781755b3edaf32d821c860b66',
+        type: 'single-choice',
+        choice: 1,
+        reason: 'Choice 1 make lot of sense',
+        app: 'my-app'
+      } as Vote;
+
+    const res = await snapshotClientRef.current!.castVote(test_vote);
+    console.log("[vote]res:", res);
+  }
+
+  const joinSpace = async () => {
+    const spaceObj = {
+      space: "toolkits.eth"
+    }
+    const res = await snapshotClientRef.current!.joinSpace(spaceObj);
+    console.log("[joinSpace]res:", res);
+  }
+  const getActions = async () => {
+    const params = {
+      space: "toolkits.eth",
+      first: 20,
+      skip: 10,
+      orderDirection: OrderDirection.asc
+    } as GetActionParams
+    const res =  await snapshotClientRef.current!.getActions(params);
+    console.log("[getActions]", res)
+  }
+
+  const getProposals = async () => {
+    const variables = {
+      space: "toolkits.eth",
+      first: 20,
+      skip: 0,
+      state: State.active,
+      orderDirection: OrderDirection.asc
+    } as GetProposalsParams;
+    const res = await snapshotClientRef.current!.getProposals(variables);
+    console.log("[queryProposals]", res);
+  }
+
+  const queryProposal = async () => {
+    const proposalId = "0x5d790744b950c5d60e025b3076e1a37022f6a5a2ffcf56ba38e2d85192997ede"
+    const res = await snapshotClientRef.current!.getProposalById(proposalId);
+    console.log("[queryProposal]", res);
+  }
+
+  const querySpaceDetail = async () => {
+    const res = await snapshotClientRef.current!.getSpaceDetail("toolkits.eth");
+    console.log("[querySpaceDetail]", res)
+  }
+
+
+
   return (
     <div className="App">
       <button onClick={connect}>connect</button>
@@ -718,6 +823,16 @@ function Toolkits() {
       <button onClick={collectWithSig}>collectWithSig</button>
       <button onClick={getPersistedPublications}>getPersistedPublications</button>
       <button onClick={getPersistedCollections}>getPersistedCollections</button>
+      <br />
+
+      <h2 className="label">Snapshot</h2>
+      <button onClick={createProposal}>createProposal</button>
+      <button onClick={getProposals}>getProposals</button>
+      <button onClick={vote}>vote</button>
+      <button onClick={joinSpace}>joinSpace</button>
+      <button onClick={getActions}>getActions</button>
+      <button onClick={queryProposal}>queryProposal</button>
+      <button onClick={querySpaceDetail}>querySpaceDetail</button>
       <br />
     </div>
   );
