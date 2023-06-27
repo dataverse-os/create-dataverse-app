@@ -27,12 +27,18 @@ cd create-dataverse-app
 pnpm install
 ```
 
+Please create a new `.env` file following the example shown in `.env.example` and enter your own key if toolkits needed. For example, `VITE_LIVEPEER_API_KEY` is needed by livepeer-client-toolkit, if you want to use livepeer you must have a livepeer api key.
+
+`PRIVATE_KEY` is only needed when [Publish Your App](#publish-your-app).
+
 ## Run demo
-  
-  ```bash
-  pnpm dev
-  ```
+
+```bash
+pnpm dev
+```
+
 you can see the demo app running at http://localhost:5173.
+
 <p align="center">
 <a href=" " target="_blank">
 <img src="https://s2.loli.net/2023/06/21/yYHCeZXA82PzJiV.png" width="300" alt="Dataverse logo">
@@ -41,7 +47,7 @@ you can see the demo app running at http://localhost:5173.
 
 ## Publish Your App
 
-Set your dApp private key in `.env` and open `dataverse.config.ts` to check configurable variables:
+Set your dApp `PRIVATE_KEY` in `.env` and open `dataverse.config.ts` to check configurable variables:
 
 ```typescript
 export const config = {
@@ -56,7 +62,7 @@ export const config = {
 };
 ```
 
-These are basic information for your dApp, please update fields of `slug` and `name`. You can customize dApp's business logic with `models` field. Here is an example: 
+These are basic information for your dApp, please update fields of `slug` and `name`. You can customize dApp's business logic with `models` field. Here is an example:
 
 ```typescript
 models: [
@@ -72,39 +78,42 @@ models: [
   ],
 ```
 
-The `schemaName` links to the corresponding `models/_.graphql` file, defining your [ComposeDB](https://composedb.js.org/docs/0.4.x/guides/data-modeling/schemas) models & schemas. By default, you need to set `isPublicDomain=false` to ensure cross-app data security. If you set `isPublicDomain=true`, another dApp can compose this data model, indexing public data from your databases. 
+The `schemaName` links to the corresponding `models/_.graphql` file, defining your [ComposeDB](https://composedb.js.org/docs/0.4.x/guides/data-modeling/schemas) models & schemas. By default, you need to set `isPublicDomain=false` to ensure cross-app data security. If you set `isPublicDomain=true`, another dApp can compose this data model, indexing public data from your databases.
 
 You can also select which Ceramic endpoint your dApp is connecting to, to store data models and actual user data. App data on dataverse test ceramic node could be cleared regularly, so do NOT put anything important on test network. If you are running a production-ready dApp, you are suggested to run your own Ceramic node. You can deploy your own ceramic node using our tools [dapp-backend](https://github.com/dataverse-os/dapp-backend). Note that if your want to use your own ceramic, you need to ensure the url is accessible.
 
-Finally you can publish your dApp: 
+Finally you can publish your dApp:
 
 ```bash
 pnpm create-dataverse-app
 ```
-This will deploy models to ceramic node you specify, and register data resources to DappTable. You can find resourceIDs in `output/app.json`, including your specific logic as well as file system. 
+
+This will deploy models to ceramic node you specify, and register data resources to DappTable. You can find resourceIDs in `output/app.json`, including your specific logic as well as file system.
 
 ## Interact with Deployed App
 
-We provide simple hooks & components in `src/`. Now run the frontend to interact with your dApp logic: 
+We provide simple hooks & components in `src/`. Now run the frontend to interact with your dApp logic:
 
 ```typescript
-  // Connect user's wallet
-  const { connectWallet } = useWallet();
+// Connect user's wallet
+const { connectWallet } = useWallet();
 
-  // Event streams
-  const {
-    pkh,
-    createCapability,
-    loadStreams,
-    createPublicStream,
-    createEncryptedStream,
-    createPayableStream,
-    monetizeStream,
-    unlockStream,
-    updateStream,
-  } = useStream();
+// Event streams
+const {
+  pkh,
+  createCapability,
+  loadStreams,
+  createPublicStream,
+  createEncryptedStream,
+  createPayableStream,
+  monetizeStream,
+  unlockStream,
+  updateStream,
+} = useStream();
 ```
+
 ## Use toolkits
+
 [External-Toolkits](https://github.com/dataverse-os/external-toolkits) are a set of tools to help developers integrate DataverseOS with other Web3 protocols, such as [Tableland](https://tableland.xyz/), [Livepeer](https://livepeer.org/), [Push](https://staging.push.org/). Check more details [here](https://github.com/dataverse-os/external-toolkits).
 
 To use these toolkits in your app, you need to add the models used by these protocols defined in `dataverse.config.ts.example` and add them to your
