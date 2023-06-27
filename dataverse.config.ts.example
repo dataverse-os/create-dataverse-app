@@ -38,10 +38,7 @@ export const config = {
     {
       isPublicDomain: false,
       schemaName: "livepeerasset.graphql",
-      encryptable: [
-        "storage",
-        "playback_id",
-      ],
+      encryptable: ["storage", "playback_id"],
     },
     {
       isPublicDomain: false,
@@ -49,15 +46,25 @@ export const config = {
       encryptable: [],
     },
     {
-      isPublicDomain: false, // default
+      isPublicDomain: false, 
       schemaName: "xmtpmessage.graphql",
-      encryptable: ["content"], // strings within the schema and within the array represent fields that may be encrypted, while fields within the schema but not within the array represent fields that will definitely not be encrypted
+      encryptable: ["content"],
     },
     {
-      isPublicDomain: false, // default
+      isPublicDomain: false, 
       schemaName: "xmtpkeycache.graphql",
-      encryptable: ["keys"], // strings within the schema and within the array represent fields that may be encrypted, while fields within the schema but not within the array represent fields that will definitely not be encrypted
-    }
+      encryptable: ["keys"],
+    },
+    {
+      isPublicDomain: false, 
+      schemaName: "lenspost.graphql",
+      encryptable: [],
+    },
+    {
+      isPublicDomain: false, 
+      schemaName: "lenscollection.graphql",
+      encryptable: [],
+    },
   ],
   ceramicUrl: null, // leave null to use dataverse test Ceramic node. Set to {Your Ceramic node Url} for mainnet, should start with "https://".
 };

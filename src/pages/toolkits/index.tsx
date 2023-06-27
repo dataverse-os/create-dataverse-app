@@ -19,9 +19,17 @@ import XmtpClient, {
 } from "@dataverse/xmtp-client-toolkit";
 
 import TablelandClient from "@dataverse/tableland-client-toolkit";
+import LensClient, {
+  CommentData,
+  LensNetwork,
+  MirrorData,
+  ModelType as LensModelType,
+  PostData,
+} from "@dataverse/lens-client-toolkit";
 import { Network } from "@dataverse/tableland-client-toolkit";
 import { LivepeerWidget, LivepeerPlayer } from "../../components/Livepeer";
 import { getModelByName } from "../../utils";
+import { ethers } from "ethers";
 
 function Toolkits() {
   const { runtimeConnector, output } = useConfig();
@@ -31,9 +39,11 @@ function Toolkits() {
   const livepeerClientRef = useRef<LivepeerClient>();
   const tablelandClientRef = useRef<TablelandClient>();
   const xmtpClientRef = useRef<XmtpClient>();
+  const lensClientRef = useRef<LensClient>();
   const [tableId, setTableId] = useState<string>();
   const [tableName, setTableName] = useState<string>();
   const [asset, setAsset] = useState<any>(null);
+  const [profileId, setProfileId] = useState<string>();
 
   const { address, connectWallet, switchNetwork } = useWallet();
   const { pkh, createCapability } = useStream();
@@ -57,6 +67,10 @@ function Toolkits() {
     const xmtpkeycacheModel = getModelByName(`${appSlug}_xmtpkeycache`);
 
     const xmtpmessageModel = getModelByName(`${appSlug}_xmtpmessage`);
+
+    const lenspostModel = getModelByName(`${appSlug}_lenspost`);
+
+    const lenscollectionModel = getModelByName(`${appSlug}_lenscollection`);
 
     if (pushChatMessageModel) {
       const pushChatClient = new PushChatClient({
@@ -122,6 +136,18 @@ function Toolkits() {
         env: "production",
       });
       xmtpClientRef.current = xmtpClient;
+    }
+
+    if (lenspostModel && lenscollectionModel) {
+      const lensClient = new LensClient({
+        modelIds: {
+          [LensModelType.Post]: lenspostModel.stream_id,
+          [LensModelType.Collection]: lenscollectionModel.stream_id,
+        },
+        runtimeConnector,
+        network: LensNetwork.MumbaiTestnet,
+      });
+      lensClientRef.current = lensClient;
     }
   }, []);
 
@@ -382,11 +408,233 @@ function Toolkits() {
     console.log("getPersistedMessages res:", res);
   };
 
+  // Lens
+  const getProfiles = async () => {
+    if (!address) {
+      return;
+    }
+    const res = await lensClientRef.current?.getProfiles(address);
+    console.log("[getprofiles]res:", res);
+    if (res.length > 0) {
+      setProfileId(res[0].id);
+    }
+  };
+
+  const createProfile = async () => {
+    if (!address) {
+      return;
+    }
+    const handle = "nicknametommmmy";
+    if (!/^[\da-z]{5,26}$/.test(handle) || handle.length > 26) {
+      throw "Only supports lower case characters, numbers, must be minimum of 5 length and maximum of 26 length";
+    }
+    const res = await lensClientRef.current?.createProfile({
+      to: address,
+      handle,
+      imageURI:
+        "https://gateway.ipfscdn.io/ipfs/QmQPuXJ7TTg7RpNjHeAR4NrGtDVSAwoP2qD4VdZF2vAJiR",
+    });
+    console.log("createProfile res:", res);
+  };
+
+  const post = async () => {
+    if (!profileId) {
+      return;
+    }
+    const collectModule = lensClientRef.current?.lensContractsAddress.FreeCollectModule;
+    const collectModuleInitData = ethers.utils.defaultAbiCoder.encode(
+      ["bool"],
+      [false]
+    ) as any;
+    const postData: PostData = {
+      profileId,
+      contentURI: "https://dataverse-os.com/",
+      collectModule,
+      collectModuleInitData,
+      referenceModule: ethers.constants.AddressZero,
+      referenceModuleInitData: [],
+    };
+    const res = await lensClientRef.current?.post(postData);
+    console.log("post res:", res);
+  };
+
+  const postWithSig = async () => {
+    if (!profileId) {
+      return;
+    }
+    const collectModule = lensClientRef.current?.lensContractsAddress.FreeCollectModule;
+    const collectModuleInitData = ethers.utils.defaultAbiCoder.encode(
+      ["bool"],
+      [false]
+    ) as any;
+    const postData: PostData = {
+      profileId,
+      contentURI: "https://dataverse-os.com/",
+      collectModule,
+      collectModuleInitData,
+      referenceModule: ethers.constants.AddressZero,
+      referenceModuleInitData: [],
+    };
+    const res = await lensClientRef.current?.postWithSig(postData);
+    console.log("postWithSig res:", res);
+  };
+
+  const comment = async () => {
+    if (!profileId) {
+      return;
+    }
+    const profileIdPointed = "0x80e4";
+    const pubIdPointed = "0x10";
+    const referenceModule = await lensClientRef.current?.getReferenceModule({
+      profileId: profileIdPointed,
+      pubId: pubIdPointed,
+    });
+    // followerOnly: false
+    const collectModuleInitData = ethers.utils.defaultAbiCoder.encode(
+      ["bool"],
+      [false]
+    ) as any;
+    const collectModule = await lensClientRef.current?.getCollectModule({
+      profileId: profileIdPointed,
+      pubId: pubIdPointed,
+    })
+    
+    const commentData: CommentData = {
+      profileId,
+      contentURI: "https://github.com/dataverse-os",
+      profileIdPointed,
+      pubIdPointed,
+      referenceModuleData: [],
+      collectModule: collectModule!,
+      collectModuleInitData,
+      referenceModule: referenceModule!,
+      referenceModuleInitData: [],
+    };
+    const res = await lensClientRef.current?.comment(commentData);
+    console.log("comment res:", res);
+  };
+
+  const commentWithSig = async () => {
+    if (!profileId) {
+      return;
+    }
+    const profileIdPointed = "0x80e4";
+    const pubIdPointed = "0x10";
+    const referenceModule = await lensClientRef.current?.getReferenceModule({
+      profileId: profileIdPointed,
+      pubId: pubIdPointed,
+    });
+    // followerOnly: false
+    const collectModuleInitData = ethers.utils.defaultAbiCoder.encode(
+      ["bool"],
+      [false]
+    ) as any;
+    const collectModule = await lensClientRef.current?.getCollectModule({
+      profileId: profileIdPointed,
+      pubId: pubIdPointed,
+    })
+    
+    const commentData: CommentData = {
+      profileId,
+      contentURI: "https://github.com/dataverse-os",
+      profileIdPointed,
+      pubIdPointed,
+      referenceModuleData: [],
+      collectModule: collectModule!,
+      collectModuleInitData,
+      referenceModule: referenceModule!,
+      referenceModuleInitData: [],
+    };
+    const res = await lensClientRef.current?.commentWithSig(commentData);
+    console.log("commentWithSig res:", res);
+  };
+
+  const mirror = async () => {
+    if (!profileId) {
+      return;
+    }
+    const profileIdPointed = "0x80e4";
+    const pubIdPointed = "0x10";
+    const referenceModule = await lensClientRef.current?.getReferenceModule({
+      profileId: profileIdPointed,
+      pubId: pubIdPointed,
+    });
+    const mirrorData: MirrorData = {
+      profileId,
+      profileIdPointed,
+      pubIdPointed,
+      referenceModuleData: [],
+      referenceModule: referenceModule!,
+      referenceModuleInitData: [],
+    };
+    const res = await lensClientRef.current?.mirror(mirrorData);
+    console.log("[mirror]res:", res);
+  };
+
+  const mirrorWithSig = async () => {
+    if (!profileId) {
+      return;
+    }
+    const profileIdPointed = "0x80e4";
+    const pubIdPointed = "0x10";
+    const referenceModule = await lensClientRef.current?.getReferenceModule({
+      profileId: profileIdPointed,
+      pubId: pubIdPointed,
+    });
+    const mirrorData: MirrorData = {
+      profileId,
+      profileIdPointed,
+      pubIdPointed,
+      referenceModuleData: [],
+      referenceModule: referenceModule!,
+      referenceModuleInitData: [],
+    };
+    const res = await lensClientRef.current?.mirrorWithSig(mirrorData);
+    console.log("[mirrorWithSig]res:", res);
+  };
+
+  const collect = async () => {
+    if (!profileId) {
+      return;
+    }
+    const profileIdPointed = "0x80e4";
+    const pubIdPointed = "0x10";
+    const res = await lensClientRef.current?.collect({
+      profileId: profileIdPointed,
+      pubId: pubIdPointed,
+    });
+    console.log("[collect]res:", res);
+  };
+
+  const collectWithSig = async () => {
+    if (!profileId) {
+      return;
+    }
+    const profileIdPointed = "0x80e4";
+    const pubIdPointed = "0x10";
+    const res = await lensClientRef.current?.collectWithSig({
+      profileId: profileIdPointed,
+      pubId: pubIdPointed,
+    });
+    console.log("[collectWithSig]res:", res);
+  };
+
+  const getPersistedPosts = async () => {
+    const res = await lensClientRef.current?.getPersistedPosts();
+    console.log("[getPersistedPosts]res:", res);
+  }
+
+  const getPersistedCollections = async () => {
+    const res = await lensClientRef.current?.getPersistedCollections();
+    console.log("[getPersistedCollections]res:", res);
+  }
+
   return (
     <div className="App">
       <button onClick={connect}>connect</button>
       <div className="blackText">{pkh}</div>
       <hr />
+      
       <h2 className="label">Push Channel</h2>
       <button onClick={getUserSubscriptions}>getUserSubscriptions</button>
       <button onClick={getUserSpamNotifications}>
@@ -401,12 +649,14 @@ function Toolkits() {
       <button onClick={searchChannelByName}>searchChannelByName</button>
       <button onClick={getNotificationList}>getNotificationList</button>
       <br />
+
       <h2 className="label">Push Chat</h2>
       <button onClick={createPushChatUser}>createPushChatUser</button>
       <button onClick={sendChatMessage}>sendChatMessage</button>
       <button onClick={fetchHistoryChats}>fetchHistoryChats</button>
       <button onClick={getChatMessageList}>getChatMessageList</button>
       <br />
+
       <h2 className="label">Tableland</h2>
       <button onClick={createTable}>createTable</button>
       <button onClick={insertTable}>insertTable</button>
@@ -414,6 +664,7 @@ function Toolkits() {
       <button onClick={getTableByTableId}>getTableByTableId</button>
       <button onClick={getTableList}>getTableList</button>
       <br />
+
       <h2 className="label">Livepeer</h2>
       {livepeerClientRef.current?.reactClient && (
         <>
@@ -433,12 +684,39 @@ function Toolkits() {
         </>
       )}
       <br />
+
       <h2 className="label">Xmtp</h2>
       <button onClick={isUserOnNetowork}>isUserOnNetowork</button>
-      <button onClick={sendMessageToMsgReceiver}>sendMessageToMsgReceiver</button>
-      <button onClick={getMessageWithMsgReceiver}>getMessageWithMsgReceiver</button>
+      <button onClick={sendMessageToMsgReceiver}>
+        sendMessageToMsgReceiver
+      </button>
+      <button onClick={getMessageWithMsgReceiver}>
+        getMessageWithMsgReceiver
+      </button>
       <button onClick={getPersistedMessages}>getPersistedMessages</button>
       <br />
+
+      <h2 className="label">Lens</h2>
+      <input
+        type="text"
+        value={profileId || ""}
+        placeholder="profileId"
+        onChange={(event) => setProfileId(event.target.value)}
+      />
+      <button onClick={getProfiles}>getProfiles</button>
+      <button onClick={createProfile}>createProfile</button>
+      <button onClick={post}>post</button>
+      <button onClick={postWithSig}>postWithSig</button>
+      <button onClick={comment}>comment</button>
+      <button onClick={commentWithSig}>commentWithSig</button>
+      <button onClick={mirror}>mirror</button>
+      <button onClick={mirrorWithSig}>mirrorWithSig</button>
+      <button onClick={collect}>collect</button>
+      <button onClick={collectWithSig}>collectWithSig</button>
+      <button onClick={getPersistedPosts}>getPersistedPosts</button>
+      <button onClick={getPersistedCollections}>getPersistedCollections</button>
+      <br />
+
     </div>
   );
 }

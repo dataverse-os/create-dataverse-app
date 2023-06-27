@@ -26,6 +26,7 @@
     "@dataverse/runtime-connector": "1.0.59",
     "@dataverse/tableland-client-toolkit": "^1.0.18",
     "@dataverse/xmtp-client-toolkit": "^1.0.18",
+    "@dataverse/lens-client-toolkit": "^1.0.18",
     "@livepeer/react": "^2.5.5",
     "buffer": "^6.0.3",
     "chalk": "^4.1.2",
