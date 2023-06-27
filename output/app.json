@@ -1,101 +1,101 @@
 {
   "createDapp": {
-    "id": "6dff95b4-b05e-4a5c-8419-db04deae3d7e",
+    "id": "23eaa3ad-482a-47cf-874c-2c345e923620",
     "streamIDs": [
       {
-        "name": "toolkits_test008_lenscollection",
-        "stream_id": "kjzl6hvfrbw6c50hl66wu5dex8qzwg9j2hudsffx6qmy8p9v4gpk1q5plkavlrd",
+        "name": "toolkits_test010_lenscollection",
+        "stream_id": "kjzl6hvfrbw6cb7j5xmq60se4jlplsx3wfsuoal8qmweyl240uovxjz9ktq51ng",
         "isPublicDomain": false,
         "encryptable": []
       },
       {
-        "name": "toolkits_test008_xmtpmessage",
-        "stream_id": "kjzl6hvfrbw6c9lgdw4owekh0msj7s9n0myu5qgace2quje1zk3hx8gdf2qxd6h",
-        "isPublicDomain": false,
-        "encryptable": ["content"]
-      },
-      {
-        "name": "toolkits_test008_lenspost",
-        "stream_id": "kjzl6hvfrbw6c87c6xnlnpec3m96wd97wd01bnxhcq3qhtvu8x6enwccgwivepj",
-        "isPublicDomain": false,
-        "encryptable": []
-      },
-      {
-        "name": "toolkits_test008_profile",
-        "stream_id": "kjzl6hvfrbw6ca7h32371qh14x8qadx69c9tbsv38gozqjks74vtpjh8cejqiw3",
-        "isPublicDomain": true,
-        "encryptable": null
-      },
-      {
-        "name": "toolkits_test008_xmtpkeycache",
-        "stream_id": "kjzl6hvfrbw6c9jd65t7h470tctgslpzv59k5yaz4v7hqgcwiywnbbjnrc8htv1",
-        "isPublicDomain": false,
-        "encryptable": ["keys"]
-      },
-      {
-        "name": "toolkits_test008_contentFolders",
-        "stream_id": "kjzl6hvfrbw6c89ovh7txe7v9owmh7ivozpfftuszzbplyjoo8nd9urw36wscft",
+        "name": "toolkits_test010_contentFolders",
+        "stream_id": "kjzl6hvfrbw6cajc16qevcv3zq0m5cgfkb53h9na44kztf84nibb2h9i43jb3z2",
         "isPublicDomain": false,
         "encryptable": null
       },
       {
-        "name": "toolkits_test008_indexFiles",
-        "stream_id": "kjzl6hvfrbw6caa8u2lgqjyng8miw1kublicag929qz1lj9hpqezxx1l84finv6",
-        "isPublicDomain": false,
-        "encryptable": null
-      },
-      {
-        "name": "toolkits_test008_indexFolders",
-        "stream_id": "kjzl6hvfrbw6ca8hyi33ahka42out3p6uicbdgy9kin2dyi65p01gy200gy63jv",
-        "isPublicDomain": false,
-        "encryptable": null
-      },
-      {
-        "name": "toolkits_test008_pushchatgpgkey",
-        "stream_id": "kjzl6hvfrbw6c84jqes0d2iu52ow76yxpp7l54b6n08rm3zaz8icag85850z5pn",
-        "isPublicDomain": false,
-        "encryptable": ["pgp_key"]
-      },
-      {
-        "name": "toolkits_test008_table",
-        "stream_id": "kjzl6hvfrbw6c97be4t5ezz9umslg3f99swgzou0lcfg2rma9yzr2kxoifux8cd",
-        "isPublicDomain": false,
-        "encryptable": []
-      },
-      {
-        "name": "toolkits_test008_livepeerasset",
-        "stream_id": "kjzl6hvfrbw6cay67rlqedbymbrn4hw3yxuz1o4mjq4wxl3y807kl6o3kq2burb",
+        "name": "toolkits_test010_livepeerasset",
+        "stream_id": "kjzl6hvfrbw6caagswgjab47vzeb2nah0zwe7g4pad8nuc6crmt9ybq2t43xp86",
         "isPublicDomain": false,
         "encryptable": ["storage", "playback_id"]
       },
       {
-        "name": "toolkits_test008_pushchannel",
-        "stream_id": "kjzl6hvfrbw6ca19lrngpww4cnreyxc3zkzdxir7akh2abdoobk1wv0hgl2jjm8",
+        "name": "toolkits_test010_pushchatgpgkey",
+        "stream_id": "kjzl6hvfrbw6c56dw45oslxs88t5rp0978wmrme3gbmvjcjbm557acsek8i8g1f",
+        "isPublicDomain": false,
+        "encryptable": ["pgp_key"]
+      },
+      {
+        "name": "toolkits_test010_indexFolders",
+        "stream_id": "kjzl6hvfrbw6c9osxeopa1t9lppqr6nh250y5900tdumrgzi2mjo7s9b2nni9rs",
+        "isPublicDomain": false,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test010_xmtpmessage",
+        "stream_id": "kjzl6hvfrbw6ca8i1p7z91lt0r338kbobjn3i0l005fcxd1gesqkdd2ffc7vla7",
+        "isPublicDomain": false,
+        "encryptable": ["content"]
+      },
+      {
+        "name": "toolkits_test010_pushchannel",
+        "stream_id": "kjzl6hvfrbw6c9nbsx5ni4wkidsjcizvt3h0ek4snwxmps6ozk5w65gefpk2z1j",
         "isPublicDomain": false,
         "encryptable": []
       },
       {
-        "name": "toolkits_test008_post",
-        "stream_id": "kjzl6hvfrbw6c890g3s0q6wfqe2cvw03jxq4s64l8e8rsgp0fh164fpxs30mvzq",
+        "name": "toolkits_test010_profile",
+        "stream_id": "kjzl6hvfrbw6c7e6t5s9haxcr3ugc5bz6mwm7m7ielupo1vz6bj6v2cpemhlck2",
+        "isPublicDomain": true,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test010_xmtpkeycache",
+        "stream_id": "kjzl6hvfrbw6c9p726ie9ccijq7u6bvs979ujj85esgfwnit4ey0p858fm5o8bs",
+        "isPublicDomain": false,
+        "encryptable": ["keys"]
+      },
+      {
+        "name": "toolkits_test010_table",
+        "stream_id": "kjzl6hvfrbw6c721pcfzexz5pkxdjwuf4qzygy3s05hs7exl3urltxpam43eaew",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test010_post",
+        "stream_id": "kjzl6hvfrbw6c661g9xjv29ra08es0lapivtvzc53vxmikybsvf1koiadajae4l",
         "isPublicDomain": false,
         "encryptable": ["text", "images", "videos"]
       },
       {
-        "name": "toolkits_test008_pushnotification",
-        "stream_id": "kjzl6hvfrbw6c6ig9rbdhl5y62eu0jaf5cab55r5hrmt64aq7g5uztv5qfhqwzw",
+        "name": "toolkits_test010_indexFiles",
+        "stream_id": "kjzl6hvfrbw6c74u6texjsasv9b59hmlp4hjd4fxos2bzu3b2sz3ju9x79osu8j",
+        "isPublicDomain": false,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test010_pushchatmessage",
+        "stream_id": "kjzl6hvfrbw6c9fj2x04mnu290dp3jf598mmoe2pfmzuunulzkhrd6tcdd6xsbh",
+        "isPublicDomain": false,
+        "encryptable": ["link", "cid"]
+      },
+      {
+        "name": "toolkits_test010_lenspublication",
+        "stream_id": "kjzl6hvfrbw6c9034gw21c9568hkpi6d5ba7zo5ie937okmhsn8t6nwz454aiof",
         "isPublicDomain": false,
         "encryptable": []
       },
       {
-        "name": "toolkits_test008_pushchatmessage",
-        "stream_id": "kjzl6hvfrbw6c6ksgpfto5gmq9e1773s64uo7kndc1xc11sjfbdfgfjdpip1rdx",
+        "name": "toolkits_test010_pushnotification",
+        "stream_id": "kjzl6hvfrbw6c58her97whu3863ak3dslr63429rv9k4cwslpjosm6ibhiuoxhy",
         "isPublicDomain": false,
-        "encryptable": ["link", "cid"]
+        "encryptable": []
       }
     ],
     "website": "",
-    "name": "toolkits_test008",
-    "slug": "toolkits_test008",
+    "name": "toolkits_test010",
+    "slug": "toolkits_test010",
     "logo": "http://no-logo.com",
     "description": "",
     "defaultFolderName": "Untitled",
