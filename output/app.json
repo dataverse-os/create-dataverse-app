@@ -1,1 +1,132 @@
-{"createDapp":{"id":"e9070aa7-4992-435b-9245-d79d68816e0d","streamIDs":[{"name":"toolkits_test0016_indexFolders","stream_id":"kjzl6hvfrbw6c9azor8fdd7ykzphphgcgj63silnjq9mjed69odq5yvjwp6bcgs","isPublicDomain":false,"encryptable":null},{"name":"toolkits_test0016_profile","stream_id":"kjzl6hvfrbw6c6bkprlw4a17xrijtbaedzkmxoynkjqwnhftutx36g2l7ci6ino","isPublicDomain":true,"encryptable":null},{"name":"toolkits_test0016_pushchatgpgkey","stream_id":"kjzl6hvfrbw6c57oafz7o0azw09tegcbnd6lf2ia5d705c31wzgiwhon9nlzz4i","isPublicDomain":false,"encryptable":["pgp_key"]},{"name":"toolkits_test0016_xmtpkeycache","stream_id":"kjzl6hvfrbw6c6dttc0m5h5v37swxkpsgbzyi8w52jz76fn6sspu3gq2yb20g3l","isPublicDomain":false,"encryptable":["keys"]},{"name":"toolkits_test0016_lenspublication","stream_id":"kjzl6hvfrbw6c5rh3zp6orzyb353ns7vuzymf7p7a6y39pskdbd4nl6jrfigf3s","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test0016_pushchatmessage","stream_id":"kjzl6hvfrbw6c6uu0a8j49kstllgfvgyu80ifyxhngix7noeitf83sd9cp5kes7","isPublicDomain":false,"encryptable":["link","cid"]},{"name":"toolkits_test0016_snapshotproposal","stream_id":"kjzl6hvfrbw6c7pau7bt5928yhz0j14hpuhj3xeu2hfdte91lqaevn38bphetxk","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test0016_post","stream_id":"kjzl6hvfrbw6c7tdv4d9lpegykqk9keg4u9iyf1ovfllx104vhhlurs5uyolkrt","isPublicDomain":false,"encryptable":["text","images","videos"]},{"name":"toolkits_test0016_pushnotification","stream_id":"kjzl6hvfrbw6c84onhs1ohg9726fr7d8nnzgzb51kmhk5qlfbrvw3niq9pj907b","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test0016_xmtpmessage","stream_id":"kjzl6hvfrbw6c8nzplnrg7gmdzge47qgy0sbs40ftlx630qukblssvbxbvgnx9i","isPublicDomain":false,"encryptable":["content"]},{"name":"toolkits_test0016_indexFiles","stream_id":"kjzl6hvfrbw6c60ma16zflpxv7hi9ofug0sqa483xma1sbiy60ek5s9x7madlzt","isPublicDomain":false,"encryptable":null},{"name":"toolkits_test0016_contentFolders","stream_id":"kjzl6hvfrbw6c5gu7e19d306sjfw5qufntlnmiqurrle0s4qxii7prrii5cugec","isPublicDomain":false,"encryptable":null},{"name":"toolkits_test0016_table","stream_id":"kjzl6hvfrbw6c6go2nl5s10kg6sx67fp0qsjkim3tauron8u7ruqtsl4lsx5lyl","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test0016_pushchannel","stream_id":"kjzl6hvfrbw6c5ek7fmdpc1j9yc5746amfpughx2gx89qurtctqpkqg3cv46fk8","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test0016_lenscollection","stream_id":"kjzl6hvfrbw6c831rowruwtb6hh71k3oxl4sq14n3sl9z033gat14adbh7hg1m4","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test0016_livepeerasset","stream_id":"kjzl6hvfrbw6cb6m1zcep9vkullq5wwkv4p5ns93nr6an59t10jmvd0efyt7doc","isPublicDomain":false,"encryptable":["storage","playback_id"]},{"name":"toolkits_test0016_snapshotvote","stream_id":"kjzl6hvfrbw6c6tyshi22x7b3lzo6o7sngwmxddf1toovv8x32lprypc8dq50ip","isPublicDomain":false,"encryptable":[]}],"website":"","name":"toolkits_test0016","slug":"toolkits_test0016","logo":"http://no-logo.com","description":"","defaultFolderName":"Untitled","ceramic":"https://local1.dataverseceramicdaemon.com"}}
+{
+  "createDapp": {
+    "id": "e9070aa7-4992-435b-9245-d79d68816e0d",
+    "streamIDs": [
+      {
+        "name": "toolkits_test0016_indexFolders",
+        "stream_id": "kjzl6hvfrbw6c9azor8fdd7ykzphphgcgj63silnjq9mjed69odq5yvjwp6bcgs",
+        "isPublicDomain": false,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test0016_profile",
+        "stream_id": "kjzl6hvfrbw6c6bkprlw4a17xrijtbaedzkmxoynkjqwnhftutx36g2l7ci6ino",
+        "isPublicDomain": true,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test0016_pushchatgpgkey",
+        "stream_id": "kjzl6hvfrbw6c57oafz7o0azw09tegcbnd6lf2ia5d705c31wzgiwhon9nlzz4i",
+        "isPublicDomain": false,
+        "encryptable": [
+          "pgp_key"
+        ]
+      },
+      {
+        "name": "toolkits_test0016_xmtpkeycache",
+        "stream_id": "kjzl6hvfrbw6c6dttc0m5h5v37swxkpsgbzyi8w52jz76fn6sspu3gq2yb20g3l",
+        "isPublicDomain": false,
+        "encryptable": [
+          "keys"
+        ]
+      },
+      {
+        "name": "toolkits_test0016_lenspublication",
+        "stream_id": "kjzl6hvfrbw6c5rh3zp6orzyb353ns7vuzymf7p7a6y39pskdbd4nl6jrfigf3s",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test0016_pushchatmessage",
+        "stream_id": "kjzl6hvfrbw6c6uu0a8j49kstllgfvgyu80ifyxhngix7noeitf83sd9cp5kes7",
+        "isPublicDomain": false,
+        "encryptable": [
+          "link",
+          "cid"
+        ]
+      },
+      {
+        "name": "toolkits_test0016_snapshotproposal",
+        "stream_id": "kjzl6hvfrbw6c7pau7bt5928yhz0j14hpuhj3xeu2hfdte91lqaevn38bphetxk",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test0016_post",
+        "stream_id": "kjzl6hvfrbw6c7tdv4d9lpegykqk9keg4u9iyf1ovfllx104vhhlurs5uyolkrt",
+        "isPublicDomain": false,
+        "encryptable": [
+          "text",
+          "images",
+          "videos"
+        ]
+      },
+      {
+        "name": "toolkits_test0016_pushnotification",
+        "stream_id": "kjzl6hvfrbw6c84onhs1ohg9726fr7d8nnzgzb51kmhk5qlfbrvw3niq9pj907b",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test0016_xmtpmessage",
+        "stream_id": "kjzl6hvfrbw6c8nzplnrg7gmdzge47qgy0sbs40ftlx630qukblssvbxbvgnx9i",
+        "isPublicDomain": false,
+        "encryptable": [
+          "content"
+        ]
+      },
+      {
+        "name": "toolkits_test0016_indexFiles",
+        "stream_id": "kjzl6hvfrbw6c60ma16zflpxv7hi9ofug0sqa483xma1sbiy60ek5s9x7madlzt",
+        "isPublicDomain": false,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test0016_contentFolders",
+        "stream_id": "kjzl6hvfrbw6c5gu7e19d306sjfw5qufntlnmiqurrle0s4qxii7prrii5cugec",
+        "isPublicDomain": false,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test0016_table",
+        "stream_id": "kjzl6hvfrbw6c6go2nl5s10kg6sx67fp0qsjkim3tauron8u7ruqtsl4lsx5lyl",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test0016_pushchannel",
+        "stream_id": "kjzl6hvfrbw6c5ek7fmdpc1j9yc5746amfpughx2gx89qurtctqpkqg3cv46fk8",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test0016_lenscollection",
+        "stream_id": "kjzl6hvfrbw6c831rowruwtb6hh71k3oxl4sq14n3sl9z033gat14adbh7hg1m4",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test0016_livepeerasset",
+        "stream_id": "kjzl6hvfrbw6cb6m1zcep9vkullq5wwkv4p5ns93nr6an59t10jmvd0efyt7doc",
+        "isPublicDomain": false,
+        "encryptable": [
+          "storage",
+          "playback_id"
+        ]
+      },
+      {
+        "name": "toolkits_test0016_snapshotvote",
+        "stream_id": "kjzl6hvfrbw6c6tyshi22x7b3lzo6o7sngwmxddf1toovv8x32lprypc8dq50ip",
+        "isPublicDomain": false,
+        "encryptable": []
+      }
+    ],
+    "website": "",
+    "name": "toolkits_test0016",
+    "slug": "toolkits_test0016",
+    "logo": "http://no-logo.com",
+    "description": "",
+    "defaultFolderName": "Untitled",
+    "ceramic": "https://local1.dataverseceramicdaemon.com"
+  }
+}

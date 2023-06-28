@@ -27,8 +27,7 @@ import LensClient, {
   PostData,
 } from "@dataverse/lens-client-toolkit";
 
-import {
-  SnapshotClient,
+import SnapshotClient, {
   ModelType as snapshotModelType,
   SNAP_SHOT_HUB,
   OrderDirection, GetActionParams, State, GetProposalsParams, Strategy, now
@@ -39,6 +38,8 @@ import { LivepeerWidget, LivepeerPlayer } from "../../components/Livepeer";
 import { getModelByName } from "../../utils";
 import { ethers } from "ethers";
 import {Proposal, Vote} from "../../../../toolkits-develop/external-toolkit-xmtp/packages/snapshot-client/src";
+import ReactJson from "react-json-view";
+import ProposalForm from "../../components/snapshot/proposal-form";
 
 function Toolkits() {
   const { runtimeConnector, output } = useConfig();
@@ -54,6 +55,12 @@ function Toolkits() {
   const [tableName, setTableName] = useState<string>();
   const [asset, setAsset] = useState<any>(null);
   const [profileId, setProfileId] = useState<string>();
+
+  const [spaceActions, setSpaceActions] = useState<Object[]>();
+  const [spaceId, setSpaceId] = useState<string>();
+  const [proposals, setProposals] = useState<Object[]>();
+  const [proposalId, setProposalId] = useState<string>();
+  const [sId, setSId] = useState<string>();
 
   const { address, connectWallet, switchNetwork } = useWallet();
   const { pkh, createCapability } = useStream();
@@ -165,6 +172,7 @@ function Toolkits() {
     }
 
     if (snapshotproposalModel) {
+      console.log("streamId : ", snapshotproposalModel?.stream_id!, snapshotvoteModel?.stream_id! )
       const snapshotClient = new SnapshotClient({
         runtimeConnector,
         modelIds: {
@@ -400,12 +408,12 @@ function Toolkits() {
   };
 
   // Xmtp
-  const isUserOnNetowork = async () => {
+  const isUserOnNetwork = async () => {
     const isOnNetwork = await xmtpClientRef.current?.isUserOnNetwork(
       address,
       "production"
     );
-    console.log("isUserOnNetowork:", isOnNetwork);
+    console.log("isUserOnNetwork:", isOnNetwork);
   };
 
   const sendMessageToMsgReceiver = async () => {
@@ -658,23 +666,9 @@ function Toolkits() {
     console.log("[getPersistedCollections]res:", res);
   };
 
-  const createProposal = async () => {
-    const ONE_DAY = 24 * 60 * 60;
-    const test_proposal = {
-      space: 'toolkits.eth',
-      type: 'single-choice', // define the voting system
-      title: 'p_15',
-      body: 'proposal_p_15',
-      choices: ['option01', 'option02', 'option03'],
-      discussion: "",
-      start: now(),
-      end: now() + ONE_DAY,
-      snapshot: 17561820,
-      plugins: JSON.stringify({}),
-      app: 'my-app-01' // provide the name of your project which is using this snapshot.js integration
-    } as Proposal;
-
-    const res = await snapshotClientRef.current!.createProposal(test_proposal);
+  /** snapshot toolkit */
+  const createProposal = async ( proposal: any) => {
+    const res = await snapshotClientRef.current!.createProposal(proposal);
     console.log("[createProposal]res:", res);
   }
 
@@ -709,11 +703,12 @@ function Toolkits() {
     } as GetActionParams
     const res =  await snapshotClientRef.current!.getActions(params);
     console.log("[getActions]", res)
+    setSpaceActions(res);
   }
 
   const getProposals = async () => {
     const variables = {
-      space: "toolkits.eth",
+      space: spaceId ?? "toolkits.eth",
       first: 20,
       skip: 0,
       state: State.active,
@@ -721,20 +716,21 @@ function Toolkits() {
     } as GetProposalsParams;
     const res = await snapshotClientRef.current!.getProposals(variables);
     console.log("[queryProposals]", res);
+    setProposals(res)
   }
 
   const queryProposal = async () => {
-    const proposalId = "0x5d790744b950c5d60e025b3076e1a37022f6a5a2ffcf56ba38e2d85192997ede"
-    const res = await snapshotClientRef.current!.getProposalById(proposalId);
+
+    const res = await snapshotClientRef.current!.getProposalById(
+      proposalId ?? "0x5d790744b950c5d60e025b3076e1a37022f6a5a2ffcf56ba38e2d85192997ede"
+    );
     console.log("[queryProposal]", res);
   }
 
   const querySpaceDetail = async () => {
-    const res = await snapshotClientRef.current!.getSpaceDetail("toolkits.eth");
+    const res = await snapshotClientRef.current!.getSpaceDetail(sId ?? "toolkits.eth");
     console.log("[querySpaceDetail]", res)
   }
-
-
 
   return (
     <div className="App">
@@ -793,7 +789,7 @@ function Toolkits() {
       <br />
 
       <h2 className="label">Xmtp</h2>
-      <button onClick={isUserOnNetowork}>isUserOnNetowork</button>
+      <button onClick={isUserOnNetwork}>isUserOnNetowork</button>
       <button onClick={sendMessageToMsgReceiver}>
         sendMessageToMsgReceiver
       </button>
@@ -826,14 +822,46 @@ function Toolkits() {
       <br />
 
       <h2 className="label">Snapshot</h2>
-      <button onClick={createProposal}>createProposal</button>
+      <ProposalForm onSubmit = {createProposal} ></ProposalForm>
+      <hr/>
+      <input
+        type="text"
+        value={spaceId}
+        placeholder="toolkits.eth"
+        onChange={(event) => setSpaceId(event.target.value)}
+      />
       <button onClick={getProposals}>getProposals</button>
+      {proposals && (
+        <div className="json-view">
+          <ReactJson src={proposals} collapsed={true} />
+        </div>
+      )}
+      <hr/>
       <button onClick={vote}>vote</button>
       <button onClick={joinSpace}>joinSpace</button>
       <button onClick={getActions}>getActions</button>
+      {spaceActions && (
+        <div className="json-view">
+          <ReactJson src={spaceActions} collapsed={true} />
+        </div>
+      )}
+      <hr/>
+      <input
+        type="text"
+        value={proposalId}
+        placeholder="proposalId"
+        onChange={(event) => setProposalId(event.target.value)}
+      />
       <button onClick={queryProposal}>queryProposal</button>
+      <hr/>
+      <input
+        type="text"
+        value={sId}
+        placeholder="toolkits.eth"
+        onChange={(event) => setSId(event.target.value)}
+      />
       <button onClick={querySpaceDetail}>querySpaceDetail</button>
-      <br />
+      <hr/>
     </div>
   );
 }
