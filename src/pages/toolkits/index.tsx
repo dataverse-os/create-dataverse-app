@@ -82,7 +82,7 @@ function Toolkits() {
 
     const xmtpmessageModel = getModelByName(`${appSlug}_xmtpmessage`);
 
-    const lenspostModel = getModelByName(`${appSlug}_lenspost`);
+    const lenspostModel = getModelByName(`${appSlug}_lenspublication`);
 
     const lenscollectionModel = getModelByName(`${appSlug}_lenscollection`);
 
@@ -134,7 +134,6 @@ function Toolkits() {
         apiKey: (import.meta as any).env.VITE_LIVEPEER_API_KEY,
         runtimeConnector,
         modelId: livepeerModel.stream_id,
-        appName,
       });
       livepeerClientRef.current = livepeerClient;
     }
@@ -176,7 +175,6 @@ function Toolkits() {
           [snapshotModelType.PROPOSAL]: snapshotproposalModel?.stream_id!,
           [snapshotModelType.VOTE]: snapshotvoteModel?.stream_id!,
         },
-        appName: output.createDapp.name,
         env: SNAP_SHOT_HUB.dev,
       });
       snapshotClientRef.current = snapshotClient;
@@ -462,6 +460,7 @@ function Toolkits() {
     if (!address) {
       return;
     }
+    console.log("lensClientRef.current:", lensClientRef.current)
     const res = await lensClientRef.current?.getProfiles(address);
     console.log("[getprofiles]res:", res);
     if (res.length > 0) {
