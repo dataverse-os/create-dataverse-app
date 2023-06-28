@@ -816,7 +816,6 @@ function Toolkits() {
         value={profileId || ""}
         placeholder="profileId"
         onChange={(event) => setProfileId(event.target.value)}
-        readOnly
       />
       <button onClick={post}>post</button>
       <button onClick={postWithSig}>postWithSig</button>
