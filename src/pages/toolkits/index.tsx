@@ -18,7 +18,7 @@ import XmtpClient, {
   ModelType as XmtpModelType,
 } from "@dataverse/xmtp-client-toolkit";
 
-import TablelandClient from "@dataverse/tableland-client-toolkit";
+import TablelandClient, { Network } from "@dataverse/tableland-client-toolkit";
 import LensClient, {
   CommentData,
   LensNetwork,
@@ -30,16 +30,13 @@ import LensClient, {
 import SnapshotClient, {
   ModelType as snapshotModelType,
   SNAP_SHOT_HUB,
-  OrderDirection, GetActionParams, State, GetProposalsParams, Strategy, now
+  OrderDirection, GetActionParams, State, GetProposalsParams, Strategy, now, Proposal, Vote
 } from "@dataverse/snapshot-client-toolkit"
 
-import { Network } from "@dataverse/tableland-client-toolkit";
 import { LivepeerWidget, LivepeerPlayer } from "../../components/Livepeer";
 import { getModelByName } from "../../utils";
 import { ethers } from "ethers";
-import {Proposal, Vote} from "../../../../toolkits-develop/external-toolkit-xmtp/packages/snapshot-client/src";
 import ReactJson from "react-json-view";
-import ProposalForm from "../../components/snapshot/proposal-form";
 
 function Toolkits() {
   const { runtimeConnector, output } = useConfig();
@@ -667,7 +664,20 @@ function Toolkits() {
   };
 
   /** snapshot toolkit */
-  const createProposal = async ( proposal: any) => {
+  const createProposal = async () => {
+    const proposal: Proposal = {
+      space: "toolkits.eth",
+      type: "single-choice", // define the voting system
+      title: "p_12",
+      body: "proposal_p_12",
+      choices: ["option01", "option02", "option03"],
+      discussion: "",
+      start: now(),
+      end: now() + 60 * 60 * 24,
+      snapshot: 17561820,
+      plugins: JSON.stringify({}),
+      app: "my-app-01", // provide the name of your project which is using this snapshot.js integration
+    };
     const res = await snapshotClientRef.current!.createProposal(proposal);
     console.log("[createProposal]res:", res);
   }
@@ -822,7 +832,7 @@ function Toolkits() {
       <br />
 
       <h2 className="label">Snapshot</h2>
-      <ProposalForm onSubmit = {createProposal} ></ProposalForm>
+      <button onClick={createProposal}>createProposal</button>
       <hr/>
       <input
         type="text"
