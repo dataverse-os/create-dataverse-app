@@ -678,19 +678,26 @@ function Toolkits() {
       app: "my-app-01", // provide the name of your project which is using this snapshot.js integration
     };
     const res = await snapshotClientRef.current!.createProposal(proposal);
+
     console.log("[createProposal]res:", res);
+    setProposalId(res.id);
   }
 
   const vote = async () => {
+    if(!proposalId) {
+      alert("create a proposal before vote");
+      return;
+    }
     const test_vote =
       {
         space: 'toolkits.eth',
-        proposal: '0xb3df03c9b6ee68fa5bf9da05e0b1ebc826ef554781755b3edaf32d821c860b66',
+        proposal: `${proposalId}`,
         type: 'single-choice',
         choice: 1,
         reason: 'Choice 1 make lot of sense',
         app: 'my-app'
       } as Vote;
+
 
     const res = await snapshotClientRef.current!.castVote(test_vote);
     console.log("[vote]res:", res);
