@@ -57,7 +57,7 @@ export const config = {
     },
     {
       isPublicDomain: false, 
-      schemaName: "lenspost.graphql",
+      schemaName: "lenspublication.graphql",
       encryptable: [],
     },
     {
