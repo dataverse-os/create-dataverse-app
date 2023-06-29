@@ -38,6 +38,8 @@ import { getModelByName } from "../../utils";
 import { ethers } from "ethers";
 import ReactJson from "react-json-view";
 
+const TEN_MINUTES = 10 * 60;
+
 function Toolkits() {
   const { runtimeConnector, output } = useConfig();
   const [pushChannelModel, setPushChannelModel] = useState<Model>();
@@ -664,15 +666,19 @@ function Toolkits() {
 
   /** snapshot toolkit */
   const createProposal = async () => {
+    if(!spaceId) {
+      alert("please enter spaceId ...");
+      return;
+    }
     const proposal: Proposal = {
-      space: "toolkits.eth",
+      space: spaceId,
       type: "single-choice", // define the voting system
-      title: "p_12",
-      body: "proposal_p_12",
+      title: "proposal_title",
+      body: "proposal_description",
       choices: ["option01", "option02", "option03"],
       discussion: "",
       start: now(),
-      end: now() + 60 * 60 * 24,
+      end: now() + TEN_MINUTES,
       snapshot: 17561820,
       plugins: JSON.stringify({}),
       app: "my-app-01", // provide the name of your project which is using this snapshot.js integration
@@ -684,14 +690,14 @@ function Toolkits() {
   }
 
   const vote = async () => {
-    if(!proposalId) {
+    if(!proposalId || !spaceId) {
       alert("create a proposal before vote");
       return;
     }
     const test_vote =
       {
-        space: 'toolkits.eth',
-        proposal: `${proposalId}`,
+        space: spaceId,
+        proposal: proposalId,
         type: 'single-choice',
         choice: 1,
         reason: 'Choice 1 make lot of sense',
@@ -704,15 +710,25 @@ function Toolkits() {
   }
 
   const joinSpace = async () => {
+    if(!spaceId) {
+      alert("please enter spaceId ...");
+      return;
+    }
+
     const spaceObj = {
-      space: "toolkits.eth"
+      space: spaceId as string
     }
     const res = await snapshotClientRef.current!.joinSpace(spaceObj);
     console.log("[joinSpace]res:", res);
   }
   const getActions = async () => {
+    if(!spaceId) {
+      alert("please enter spaceId ...");
+      return;
+    }
+
     const params = {
-      space: "toolkits.eth",
+      space: spaceId,
       first: 20,
       skip: 10,
       orderDirection: OrderDirection.asc
@@ -736,7 +752,6 @@ function Toolkits() {
   }
 
   const queryProposal = async () => {
-
     const res = await snapshotClientRef.current!.getProposalById(
       proposalId ?? "0x5d790744b950c5d60e025b3076e1a37022f6a5a2ffcf56ba38e2d85192997ede"
     );
@@ -744,8 +759,18 @@ function Toolkits() {
   }
 
   const querySpaceDetail = async () => {
-    const res = await snapshotClientRef.current!.getSpaceDetail(sId ?? "toolkits.eth");
+    const res = await snapshotClientRef.current!.getSpaceDetail(sId ?? spaceId ?? "toolkits.eth");
     console.log("[querySpaceDetail]", res)
+  }
+
+  const listVotes = async () => {
+    const res = await snapshotClientRef.current!.listVotes();
+    console.log("[listVotes]", res)
+  }
+
+  const listProposals = async () => {
+    const res = await snapshotClientRef.current!.listProposals();
+    console.log("[listProposals]", res)
   }
 
   return (
@@ -837,21 +862,19 @@ function Toolkits() {
       <br />
 
       <h2 className="label">Snapshot</h2>
-      <button onClick={createProposal}>createProposal</button>
-      <hr/>
       <input
         type="text"
         value={spaceId}
-        placeholder="toolkits.eth"
+        placeholder="spaceId: toolkits.eth"
         onChange={(event) => setSpaceId(event.target.value)}
       />
+      <button onClick={createProposal}>createProposal</button>
       <button onClick={getProposals}>getProposals</button>
       {proposals && (
         <div className="json-view">
           <ReactJson src={proposals} collapsed={true} />
         </div>
       )}
-      <hr/>
       <button onClick={vote}>vote</button>
       <button onClick={joinSpace}>joinSpace</button>
       <button onClick={getActions}>getActions</button>
@@ -860,7 +883,6 @@ function Toolkits() {
           <ReactJson src={spaceActions} collapsed={true} />
         </div>
       )}
-      <hr/>
       <input
         type="text"
         value={proposalId}
@@ -868,7 +890,6 @@ function Toolkits() {
         onChange={(event) => setProposalId(event.target.value)}
       />
       <button onClick={queryProposal}>queryProposal</button>
-      <hr/>
       <input
         type="text"
         value={sId}
@@ -876,7 +897,8 @@ function Toolkits() {
         onChange={(event) => setSId(event.target.value)}
       />
       <button onClick={querySpaceDetail}>querySpaceDetail</button>
-      <hr/>
+      <button onClick={listVotes}>listVotes</button>
+      <button onClick={listProposals}>listProposals</button>
     </div>
   );
 }
