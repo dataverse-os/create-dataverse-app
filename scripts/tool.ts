@@ -74,25 +74,25 @@ export async function readModels() {
       }
     })
   );
-  
+
   return schemas;
 }
 
 export function writeToOutput(val: object | string) {
   const filePath = path.resolve(`${process.cwd()}/output`, "app.json");
-  fs.writeFileSync(filePath, JSON.stringify(val));
+  fs.writeFileSync(filePath, JSON.stringify(val, null, 2));
 }
 
 enum YamlType {
-  array = 'array',
-  string = 'string',
-  multilines = 'multilines',
-  boolean = 'boolean',
-  number = 'number',
-  null = 'null',
-  object = 'object',
-  emptyObject = 'emptyObject',
-};
+  array = "array",
+  string = "string",
+  multilines = "multilines",
+  boolean = "boolean",
+  number = "number",
+  null = "null",
+  object = "object",
+  emptyObject = "emptyObject",
+}
 
 export class JSToYamlResult {
   value?: string;
@@ -100,11 +100,11 @@ export class JSToYamlResult {
 }
 
 export default class JSToYaml {
-  private static spacing = '  ';
-  private static spacingStart = '';
+  private static spacing = "  ";
+  private static spacingStart = "";
 
   public static stringify(data: any): JSToYamlResult {
-    const result = { value: '' } as JSToYamlResult;
+    const result = { value: "" } as JSToYamlResult;
     const type = this.getType(data);
     switch (type) {
       case YamlType.boolean:
@@ -112,7 +112,7 @@ export default class JSToYaml {
       case YamlType.null:
       case YamlType.number:
       case YamlType.string:
-        result.error = new Error('Must be an object or an array');
+        result.error = new Error("Must be an object or an array");
         return result;
     }
 
@@ -125,8 +125,12 @@ export default class JSToYaml {
     return result;
   }
 
-  private static convertFromArray(data: any[], result: JSToYamlResult, deep: number) {
-    data.forEach(value => {
+  private static convertFromArray(
+    data: any[],
+    result: JSToYamlResult,
+    deep: number
+  ) {
+    data.forEach((value) => {
       result.value += `${this.spacingStart}${this.spacing.repeat(deep)}- `;
       const type: YamlType = this.getType(value);
       switch (type) {
@@ -140,35 +144,43 @@ export default class JSToYaml {
           break;
         case YamlType.multilines:
           result.value += `|-\n`;
-          value.split('\n').forEach((line: string) => {
-            result.value += `${this.spacingStart}${this.spacing.repeat(deep + 1)}${line}\n`;
+          value.split("\n").forEach((line: string) => {
+            result.value += `${this.spacingStart}${this.spacing.repeat(
+              deep + 1
+            )}${line}\n`;
           });
           break;
         case YamlType.array:
           if (value.length) {
-            result.value += '\n';
+            result.value += "\n";
             this.convertFromArray(value, result, deep + 1);
           } else {
-            result.value += '[]\n';
+            result.value += "[]\n";
           }
           break;
         case YamlType.emptyObject:
           result.value += `{}\n`;
           break;
         default:
-          result.value += '\n';
+          result.value += "\n";
           this.convertFromObject(value, result, deep + 1);
           break;
       }
     });
   }
 
-  private static convertFromObject(data: any, result: JSToYamlResult, deep: number) {
+  private static convertFromObject(
+    data: any,
+    result: JSToYamlResult,
+    deep: number
+  ) {
     for (const propertyName of Object.keys(data)) {
       if (data.hasOwnProperty(propertyName)) {
         const value = data[propertyName] as any;
         const type: YamlType = this.getType(value);
-        result.value += `${this.spacingStart}${this.spacing.repeat(deep)}${this.normalizeKey(propertyName)}: `;
+        result.value += `${this.spacingStart}${this.spacing.repeat(
+          deep
+        )}${this.normalizeKey(propertyName)}: `;
         switch (type) {
           case YamlType.null:
           case YamlType.number:
@@ -180,23 +192,25 @@ export default class JSToYaml {
             break;
           case YamlType.multilines:
             result.value += `|-\n`;
-            value.split('\n').forEach((line: string) => {
-              result.value += `${this.spacingStart}${this.spacing.repeat(deep + 1)}${line}\n`;
+            value.split("\n").forEach((line: string) => {
+              result.value += `${this.spacingStart}${this.spacing.repeat(
+                deep + 1
+              )}${line}\n`;
             });
             break;
           case YamlType.array:
             if (value.length) {
-              result.value += '\n';
+              result.value += "\n";
               this.convertFromArray(value, result, deep);
             } else {
-              result.value += '[]\n';
+              result.value += "[]\n";
             }
             break;
           case YamlType.emptyObject:
             result.value += `{}\n`;
             break;
           default:
-            result.value += '\n';
+            result.value += "\n";
             this.convertFromObject(value, result, deep + 1);
             break;
         }
@@ -205,7 +219,7 @@ export default class JSToYaml {
   }
 
   private static normalizeKey(str: string): string {
-    if(str.indexOf(' ') > -1) {
+    if (str.indexOf(" ") > -1) {
       return this.normalizeString(str);
     }
     return str;
@@ -216,7 +230,7 @@ export default class JSToYaml {
   }
 
   private static getType(data: any): YamlType {
-    const type: string = typeof (data);
+    const type: string = typeof data;
     if (data === null) {
       return YamlType.null;
     }
@@ -224,16 +238,16 @@ export default class JSToYaml {
       return YamlType.array;
     }
     switch (type) {
-      case 'string':
-        if (data.indexOf('\n') > -1) {
+      case "string":
+        if (data.indexOf("\n") > -1) {
           return YamlType.multilines;
         }
         return YamlType.string;
-      case 'boolean':
+      case "boolean":
         return YamlType.boolean;
-      case 'number':
+      case "number":
         return YamlType.number;
-      case 'undefined':
+      case "undefined":
         return YamlType.null;
       default:
         if (Object.keys(data).length === 0) {

@@ -1,1 +1,92 @@
-{"createDapp":{"id":"f48140ec-4160-49ee-9ea7-fbdebd6668f0","streamIDs":[{"name":"toolkits_test007_pushchannel","stream_id":"kjzl6hvfrbw6cagrutqxizpb2912fjzt71fmx4jd19l69pk3wvrd9mo3vj8g4va","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test007_table","stream_id":"kjzl6hvfrbw6c6ow1gteztlkocchoosgwwm61muazrrsvnkyihcm2k0s3ae2mzx","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test007_indexFiles","stream_id":"kjzl6hvfrbw6c7poyjplw65g6oxyttp943egm93wcj52n77jlalos7mkrxxm3sg","isPublicDomain":false,"encryptable":null},{"name":"toolkits_test007_pushchatmessage","stream_id":"kjzl6hvfrbw6c7avc6d56dg5481erl58gpoeid4p3pumebxmnofwrdme3mgvlu5","isPublicDomain":false,"encryptable":["link","cid"]},{"name":"toolkits_test007_contentFolders","stream_id":"kjzl6hvfrbw6cbdl4ylrq4jw90ro35ebv48ow76syf3sldb2jfbu8mkwrb51jy0","isPublicDomain":false,"encryptable":null},{"name":"toolkits_test007_post","stream_id":"kjzl6hvfrbw6c6zwmz7eiabz4b4dpi1bzkck1drnrq07d2wsvjj1oq7p0l4mxrh","isPublicDomain":false,"encryptable":["text","images","videos"]},{"name":"toolkits_test007_xmtpkeycache","stream_id":"kjzl6hvfrbw6c68fdjgw3h7yoy3t17cnwum6cajrm89bihaepwg654lw4898eye","isPublicDomain":false,"encryptable":["keys"]},{"name":"toolkits_test007_pushchatgpgkey","stream_id":"kjzl6hvfrbw6c9lzvbxdhw58s0uc8uji6eaqyi67fjzrffohr5ybxyjgmk9lwgn","isPublicDomain":false,"encryptable":["pgp_key"]},{"name":"toolkits_test007_livepeerasset","stream_id":"kjzl6hvfrbw6c5uaw417g8ivluckfikn32vrvbhnb6j1228nl52rcllx41awckh","isPublicDomain":false,"encryptable":["storage","playback_id"]},{"name":"toolkits_test007_pushnotification","stream_id":"kjzl6hvfrbw6c7oytuezwflu0mvlda477wpnldvrn52z2bu28gtax3kajq70zo2","isPublicDomain":false,"encryptable":[]},{"name":"toolkits_test007_xmtpmessage","stream_id":"kjzl6hvfrbw6c6n6xkarhlm41fq6ys33cayl2g8bj8aa0i8zuemcsl7c31wx7d9","isPublicDomain":false,"encryptable":["content"]},{"name":"toolkits_test007_profile","stream_id":"kjzl6hvfrbw6c8kooyd7s38s2jeax4xh8c1ayu8wli39yi3tzubiwfcx1vitfhf","isPublicDomain":true,"encryptable":null},{"name":"toolkits_test007_indexFolders","stream_id":"kjzl6hvfrbw6c59f35wyt97c08nuh1r1c4ubnzn9y1lay59p5t8iaxexfz46xdk","isPublicDomain":false,"encryptable":null}],"website":"","name":"toolkits_test007","slug":"toolkits_test007","logo":"http://no-logo.com","description":"","defaultFolderName":"Untitled","ceramic":"https://local1.dataverseceramicdaemon.com"}}
+{
+  "createDapp": {
+    "id": "f48140ec-4160-49ee-9ea7-fbdebd6668f0",
+    "streamIDs": [
+      {
+        "name": "toolkits_test007_pushchannel",
+        "stream_id": "kjzl6hvfrbw6cagrutqxizpb2912fjzt71fmx4jd19l69pk3wvrd9mo3vj8g4va",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test007_table",
+        "stream_id": "kjzl6hvfrbw6c6ow1gteztlkocchoosgwwm61muazrrsvnkyihcm2k0s3ae2mzx",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test007_indexFiles",
+        "stream_id": "kjzl6hvfrbw6c7poyjplw65g6oxyttp943egm93wcj52n77jlalos7mkrxxm3sg",
+        "isPublicDomain": false,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test007_pushchatmessage",
+        "stream_id": "kjzl6hvfrbw6c7avc6d56dg5481erl58gpoeid4p3pumebxmnofwrdme3mgvlu5",
+        "isPublicDomain": false,
+        "encryptable": ["link", "cid"]
+      },
+      {
+        "name": "toolkits_test007_contentFolders",
+        "stream_id": "kjzl6hvfrbw6cbdl4ylrq4jw90ro35ebv48ow76syf3sldb2jfbu8mkwrb51jy0",
+        "isPublicDomain": false,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test007_post",
+        "stream_id": "kjzl6hvfrbw6c6zwmz7eiabz4b4dpi1bzkck1drnrq07d2wsvjj1oq7p0l4mxrh",
+        "isPublicDomain": false,
+        "encryptable": ["text", "images", "videos"]
+      },
+      {
+        "name": "toolkits_test007_xmtpkeycache",
+        "stream_id": "kjzl6hvfrbw6c68fdjgw3h7yoy3t17cnwum6cajrm89bihaepwg654lw4898eye",
+        "isPublicDomain": false,
+        "encryptable": ["keys"]
+      },
+      {
+        "name": "toolkits_test007_pushchatgpgkey",
+        "stream_id": "kjzl6hvfrbw6c9lzvbxdhw58s0uc8uji6eaqyi67fjzrffohr5ybxyjgmk9lwgn",
+        "isPublicDomain": false,
+        "encryptable": ["pgp_key"]
+      },
+      {
+        "name": "toolkits_test007_livepeerasset",
+        "stream_id": "kjzl6hvfrbw6c5uaw417g8ivluckfikn32vrvbhnb6j1228nl52rcllx41awckh",
+        "isPublicDomain": false,
+        "encryptable": ["storage", "playback_id"]
+      },
+      {
+        "name": "toolkits_test007_pushnotification",
+        "stream_id": "kjzl6hvfrbw6c7oytuezwflu0mvlda477wpnldvrn52z2bu28gtax3kajq70zo2",
+        "isPublicDomain": false,
+        "encryptable": []
+      },
+      {
+        "name": "toolkits_test007_xmtpmessage",
+        "stream_id": "kjzl6hvfrbw6c6n6xkarhlm41fq6ys33cayl2g8bj8aa0i8zuemcsl7c31wx7d9",
+        "isPublicDomain": false,
+        "encryptable": ["content"]
+      },
+      {
+        "name": "toolkits_test007_profile",
+        "stream_id": "kjzl6hvfrbw6c8kooyd7s38s2jeax4xh8c1ayu8wli39yi3tzubiwfcx1vitfhf",
+        "isPublicDomain": true,
+        "encryptable": null
+      },
+      {
+        "name": "toolkits_test007_indexFolders",
+        "stream_id": "kjzl6hvfrbw6c59f35wyt97c08nuh1r1c4ubnzn9y1lay59p5t8iaxexfz46xdk",
+        "isPublicDomain": false,
+        "encryptable": null
+      }
+    ],
+    "website": "",
+    "name": "toolkits_test007",
+    "slug": "toolkits_test007",
+    "logo": "http://no-logo.com",
+    "description": "",
+    "defaultFolderName": "Untitled",
+    "ceramic": "https://local1.dataverseceramicdaemon.com"
+  }
+}
