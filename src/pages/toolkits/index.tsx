@@ -37,12 +37,13 @@ import { LivepeerWidget, LivepeerPlayer } from "../../components/Livepeer";
 import { getModelByName } from "../../utils";
 import { ethers } from "ethers";
 import ReactJson from "react-json-view";
+import { Currency } from "@dataverse/runtime-connector";
 
 const TEN_MINUTES = 10 * 60;
 
 function Toolkits() {
   const { runtimeConnector, output } = useConfig();
-  const [pushChannelModel, setPushChannelModel] = useState<Model>();
+  const [postModel, setPostModel] = useState<Model>();
   const pushChatClientRef = useRef<PushChatClient>();
   const pushNotificationClientRef = useRef<PushNotificationClient>();
   const livepeerClientRef = useRef<LivepeerClient>();
@@ -61,12 +62,19 @@ function Toolkits() {
   const [proposalId, setProposalId] = useState<string>();
   const [sId, setSId] = useState<string>();
 
+  const [currentStreamId, setCurrentStreamId] = useState<string>();
+  const [profileIdPointed, setProfileIdPointed] = useState<string>();
+  const [pubIdPointed, setPubIdPointed] = useState<string>();
+
   const { address, connectWallet, switchNetwork } = useWallet();
   const { pkh, createCapability } = useStream();
 
   useEffect(() => {
     const appName = output.createDapp.name;
     const appSlug = output.createDapp.slug;
+
+    const postModel = getModelByName(`${appSlug}_post`);
+    setPostModel(postModel);
 
     const pushChatMessageModel = getModelByName(`${appSlug}_pushchatmessage`);
 
@@ -140,10 +148,6 @@ function Toolkits() {
       livepeerClientRef.current = livepeerClient;
     }
 
-    if (pushChannelModel) {
-      setPushChannelModel(pushChannelModel);
-    }
-
     if (xmtpkeycacheModel && xmtpmessageModel) {
       const xmtpClient = new XmtpClient({
         runtimeConnector,
@@ -164,7 +168,7 @@ function Toolkits() {
           [LensModelType.Collection]: lenscollectionModel.stream_id,
         },
         runtimeConnector,
-        network: LensNetwork.MumbaiTestnet,
+        network: LensNetwork.SandboxMumbaiTestnet,
       });
       lensClientRef.current = lensClient;
     }
@@ -465,61 +469,119 @@ function Toolkits() {
     console.log("lensClientRef.current:", lensClientRef.current)
     const res = await lensClientRef.current?.getProfiles(address);
     console.log("[getprofiles]res:", res);
-    if (res.length > 0) {
-      setProfileId(res[res.length - 1].id);
+    if (res!.length > 0) {
+      setProfileId(res![res!.length - 1]);
     }
   };
 
-  const post = async () => {
+  const postOnCeramic = async () => {
     if (!profileId) {
       return;
     }
-    const collectModule =
-      lensClientRef.current?.lensContractsAddress.FreeCollectModule;
+    const date = new Date().toISOString();
+
+    const collectModule = lensClientRef.current?.lensContractsAddress.FreeCollectModule;
     const collectModuleInitData = ethers.utils.defaultAbiCoder.encode(
       ["bool"],
       [false]
     ) as any;
-    const postData: PostData = {
+    const modelId = postModel!.stream_id;
+    const stream = {
+      appVersion: "1.2.1",
+      text: "hello world!",
+      images: [
+        "https://bafkreib76wz6wewtkfmp5rhm3ep6tf4xjixvzzyh64nbyge5yhjno24yl4.ipfs.w3s.link",
+      ],
+      videos: [],
+      createdAt: date,
+      updatedAt: date,
+    };
+    const encrypted = {
+      text: true,
+      images: true,
+      videos: false,
+    };
+    const postParams: Omit<PostData, "contentURI"> = {
       profileId,
-      contentURI: "https://dataverse-os.com/",
       collectModule,
       collectModuleInitData,
       referenceModule: ethers.constants.AddressZero,
       referenceModuleInitData: [],
     };
-    const res = await lensClientRef.current?.post(postData);
-    console.log("post res:", res);
+
+    const res = await lensClientRef.current?.postOnCeramic({
+      modelId,
+      stream,
+      encrypted,
+      postParams,
+      currency: Currency.WMATIC,
+      amount: 0.0001,
+      collectLimit: 1000,
+    });
+
+    console.log("[postOnCeramic]res:", res);
+    setCurrentStreamId(res?.publicationStreamId);
+    setProfileIdPointed(res?.profileId);
+    setPubIdPointed(res?.pubId);
   };
 
-  const postWithSig = async () => {
+  const postOnCeramicWithSig = async () => {
     if (!profileId) {
       return;
     }
-    const collectModule =
-      lensClientRef.current?.lensContractsAddress.FreeCollectModule;
+    const date = new Date().toISOString();
+
+    const collectModule = lensClientRef.current?.lensContractsAddress.FreeCollectModule;
     const collectModuleInitData = ethers.utils.defaultAbiCoder.encode(
       ["bool"],
       [false]
     ) as any;
-    const postData: PostData = {
+    const modelId = postModel!.stream_id;
+    const stream = {
+      appVersion: "1.2.1",
+      text: "hello world!",
+      images: [
+        "https://bafkreib76wz6wewtkfmp5rhm3ep6tf4xjixvzzyh64nbyge5yhjno24yl4.ipfs.w3s.link",
+      ],
+      videos: [],
+      createdAt: date,
+      updatedAt: date,
+    };
+    const encrypted = {
+      text: true,
+      images: true,
+      videos: false,
+    };
+    const postParams: Omit<PostData, "contentURI"> = {
       profileId,
-      contentURI: "https://dataverse-os.com/",
       collectModule,
       collectModuleInitData,
       referenceModule: ethers.constants.AddressZero,
       referenceModuleInitData: [],
     };
-    const res = await lensClientRef.current?.postWithSig(postData);
-    console.log("postWithSig res:", res);
+
+    const res = await lensClientRef.current?.postOnCeramic({
+      modelId,
+      stream,
+      encrypted,
+      postParams,
+      currency: Currency.WMATIC,
+      amount: 0.0001,
+      collectLimit: 1000,
+      withSig: true,
+    });
+
+    console.log("[postOnCeramicWithSig]res:", res);
+    setCurrentStreamId(res?.publicationStreamId);
+    setProfileIdPointed(res?.profileId);
+    setPubIdPointed(res?.pubId);
   };
 
   const comment = async () => {
-    if (!profileId) {
+    if (!profileId || !profileIdPointed || !pubIdPointed) {
       return;
     }
-    const profileIdPointed = "0x80e4";
-    const pubIdPointed = "0x10";
+
     const referenceModule = await lensClientRef.current?.getReferenceModule({
       profileId: profileIdPointed,
       pubId: pubIdPointed,
@@ -550,11 +612,9 @@ function Toolkits() {
   };
 
   const commentWithSig = async () => {
-    if (!profileId) {
+    if (!profileId || !profileIdPointed || !pubIdPointed) {
       return;
     }
-    const profileIdPointed = "0x80e4";
-    const pubIdPointed = "0x10";
     const referenceModule = await lensClientRef.current?.getReferenceModule({
       profileId: profileIdPointed,
       pubId: pubIdPointed,
@@ -585,11 +645,10 @@ function Toolkits() {
   };
 
   const mirror = async () => {
-    if (!profileId) {
+    if (!profileId || !profileIdPointed || !pubIdPointed) {
       return;
     }
-    const profileIdPointed = "0x80e4";
-    const pubIdPointed = "0x10";
+
     const referenceModule = await lensClientRef.current?.getReferenceModule({
       profileId: profileIdPointed,
       pubId: pubIdPointed,
@@ -607,11 +666,10 @@ function Toolkits() {
   };
 
   const mirrorWithSig = async () => {
-    if (!profileId) {
+    if (!profileId || !profileIdPointed || !pubIdPointed) {
       return;
     }
-    const profileIdPointed = "0x80e4";
-    const pubIdPointed = "0x10";
+
     const referenceModule = await lensClientRef.current?.getReferenceModule({
       profileId: profileIdPointed,
       pubId: pubIdPointed,
@@ -628,30 +686,29 @@ function Toolkits() {
     console.log("[mirrorWithSig]res:", res);
   };
 
-  const collect = async () => {
-    if (!profileId) {
+  const collectOnCeramic = async () => {
+    if (!currentStreamId) {
       return;
     }
-    const profileIdPointed = "0x80e4";
-    const pubIdPointed = "0x10";
-    const res = await lensClientRef.current?.collect({
-      profileId: profileIdPointed,
-      pubId: pubIdPointed,
+
+    const res = await lensClientRef.current?.collectOnCeramic({
+      streamId: currentStreamId,
     });
-    console.log("[collect]res:", res);
+
+    console.log("[collectOnCeramic]res:", res);
   };
 
-  const collectWithSig = async () => {
-    if (!profileId) {
+  const collectOnCeramicWithSig = async () => {
+    if (!currentStreamId) {
       return;
     }
-    const profileIdPointed = "0x80e4";
-    const pubIdPointed = "0x10";
-    const res = await lensClientRef.current?.collectWithSig({
-      profileId: profileIdPointed,
-      pubId: pubIdPointed,
+
+    const res = await lensClientRef.current?.collectOnCeramic({
+      streamId: currentStreamId,
+      withSig: true,
     });
-    console.log("[collectWithSig]res:", res);
+
+    console.log("[collectOnCeramicWithSig]res:", res);
   };
 
   const getPersistedPublications = async () => {
@@ -849,14 +906,14 @@ function Toolkits() {
         placeholder="profileId"
         onChange={(event) => setProfileId(event.target.value)}
       />
-      <button onClick={post}>post</button>
-      <button onClick={postWithSig}>postWithSig</button>
+      <button onClick={postOnCeramic}>postOnCeramic</button>
+      <button onClick={postOnCeramicWithSig}>postOnCeramicWithSig</button>
       <button onClick={comment}>comment</button>
       <button onClick={commentWithSig}>commentWithSig</button>
       <button onClick={mirror}>mirror</button>
       <button onClick={mirrorWithSig}>mirrorWithSig</button>
-      <button onClick={collect}>collect</button>
-      <button onClick={collectWithSig}>collectWithSig</button>
+      <button onClick={collectOnCeramic}>collectOnCeramic</button>
+      <button onClick={collectOnCeramicWithSig}>collectOnCeramicWithSig</button>
       <button onClick={getPersistedPublications}>getPersistedPublications</button>
       <button onClick={getPersistedCollections}>getPersistedCollections</button>
       <br />

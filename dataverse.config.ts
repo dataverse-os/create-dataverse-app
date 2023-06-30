@@ -1,6 +1,6 @@
 export const config = {
-  slug: "toolkits_test0015", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
-  name: "toolkits_test0015", // app name should NOT contain "-"
+  slug: "toolkits_test0019", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
+  name: "toolkits_test0019", // app name should NOT contain "-"
   logo: "http://no-logo.com",
   website: "", // you can use localhost:(port) for testing
   defaultFolderName: "Untitled",
