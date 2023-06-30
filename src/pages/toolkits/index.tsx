@@ -56,7 +56,6 @@ function Toolkits() {
   const [asset, setAsset] = useState<any>(null);
   const [profileId, setProfileId] = useState<string>();
 
-  const [spaceActions, setSpaceActions] = useState<Object[]>();
   const [spaceId, setSpaceId] = useState<string>();
   const [proposals, setProposals] = useState<Object[]>();
   const [proposalId, setProposalId] = useState<string>();
@@ -792,7 +791,6 @@ function Toolkits() {
     } as GetActionParams
     const res =  await snapshotClientRef.current!.getActions(params);
     console.log("[getActions]", res)
-    setSpaceActions(res);
   }
 
   const getProposals = async () => {
@@ -935,11 +933,6 @@ function Toolkits() {
       <button onClick={vote}>vote</button>
       <button onClick={joinSpace}>joinSpace</button>
       <button onClick={getActions}>getActions</button>
-      {spaceActions && (
-        <div className="json-view">
-          <ReactJson src={spaceActions} collapsed={true} />
-        </div>
-      )}
       <input
         type="text"
         value={proposalId}
