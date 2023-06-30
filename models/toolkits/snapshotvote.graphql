@@ -1,4 +1,4 @@
-type shapshotvote
+type snapshotvote
   @createModel(accountRelation: LIST, description: "snapshot vote") {
     voter: DID! @documentAccount
     vote_id: String!  @string(maxLength: 66)
