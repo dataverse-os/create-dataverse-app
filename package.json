@@ -7,9 +7,9 @@
   "type": "module",
   "scripts": {
     "build:scripts": "npx tsc -p tsconfig.node.json",
-    "build:model-parser": "lerna run build --scope=@dataverse/model-parser",
-    "build:src": "tsc && vite build && vite preview",
+    "build:src": "vite build",
     "build": "lerna run build && pnpm build:scripts && pnpm build:src",
+    "build:model-parser": "lerna run build --scope=@dataverse/model-parser",
     "publish": "pnpm build:scripts && env-cmd -f .env node --experimental-specifier-resolution=node ./scripts/build/scripts/createDapp.js",
     "dev": "vite",
     "preview": "vite preview"

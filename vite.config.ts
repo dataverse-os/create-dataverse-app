@@ -16,6 +16,7 @@ export default defineConfig({
     exclude: ["@tableland/sqlparser", "stream/web", "util/types"],
   },
   build: {
+    outDir: './dist',
     target: "es2020",
     sourcemap: true,
   },
