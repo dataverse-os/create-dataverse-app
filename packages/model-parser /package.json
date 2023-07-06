@@ -1,0 +1,20 @@
+{
+  "name": "@dataverse/model-parser",
+  "private": false,
+  "version": "1.0.0",
+  "description": "",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "types": "dist/esm/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig-cjs.json",
+    "build": "pnpm build:esm && pnpm build:cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

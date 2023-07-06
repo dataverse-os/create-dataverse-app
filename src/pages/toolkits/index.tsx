@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useWallet, useStream } from "../../hooks";
 import { useConfig } from "../../context/configContext";
-import { Model } from "../../types";
 import {
   PushNotificationClient,
   PushChatClient,
@@ -30,19 +29,19 @@ import LensClient, {
 import SnapshotClient, {
   ModelType as snapshotModelType,
   SNAP_SHOT_HUB,
-  OrderDirection, GetActionParams, State, GetProposalsParams, Strategy, now, Proposal, Vote
+  OrderDirection, GetActionParams, State, GetProposalsParams, now, Proposal, Vote
 } from "@dataverse/snapshot-client-toolkit"
 
 import { LivepeerWidget, LivepeerPlayer } from "../../components/Livepeer";
-import { getModelByName } from "../../utils";
 import { ethers } from "ethers";
 import ReactJson from "react-json-view";
 import { Currency } from "@dataverse/runtime-connector";
+import { Model } from "@dataverse/model-parser";
 
 const TEN_MINUTES = 10 * 60;
 
 function Toolkits() {
-  const { runtimeConnector, output } = useConfig();
+  const { runtimeConnector, modelParser } = useConfig();
   const [postModel, setPostModel] = useState<Model>();
   const pushChatClientRef = useRef<PushChatClient>();
   const pushNotificationClientRef = useRef<PushNotificationClient>();
@@ -69,35 +68,35 @@ function Toolkits() {
   const { pkh, createCapability } = useStream();
 
   useEffect(() => {
-    const appName = output.createDapp.name;
-    const appSlug = output.createDapp.slug;
+    const appName = modelParser.appName;
+    const appSlug = modelParser.appSlug;
 
-    const postModel = getModelByName(`${appSlug}_post`);
+    const postModel = modelParser.getModelByName(`${appSlug}_post`);
     setPostModel(postModel);
 
-    const pushChatMessageModel = getModelByName(`${appSlug}_pushchatmessage`);
+    const pushChatMessageModel = modelParser.getModelByName(`${appSlug}_pushchatmessage`);
 
-    const pushChannelModel = getModelByName(`${appSlug}_pushchannel`);
+    const pushChannelModel = modelParser.getModelByName(`${appSlug}_pushchannel`);
 
-    const pushChatGPGKeyModel = getModelByName(`${appSlug}_pushchatgpgkey`);
+    const pushChatGPGKeyModel = modelParser.getModelByName(`${appSlug}_pushchatgpgkey`);
 
-    const pushNotificationModel = getModelByName(`${appSlug}_pushnotification`);
+    const pushNotificationModel = modelParser.getModelByName(`${appSlug}_pushnotification`);
 
-    const livepeerModel = getModelByName(`${appSlug}_livepeerasset`);
+    const livepeerModel = modelParser.getModelByName(`${appSlug}_livepeerasset`);
 
-    const tablelandModel = getModelByName(`${appSlug}_table`);
+    const tablelandModel = modelParser.getModelByName(`${appSlug}_table`);
 
-    const xmtpkeycacheModel = getModelByName(`${appSlug}_xmtpkeycache`);
+    const xmtpkeycacheModel = modelParser.getModelByName(`${appSlug}_xmtpkeycache`);
 
-    const xmtpmessageModel = getModelByName(`${appSlug}_xmtpmessage`);
+    const xmtpmessageModel = modelParser.getModelByName(`${appSlug}_xmtpmessage`);
 
-    const lenspostModel = getModelByName(`${appSlug}_lenspublication`);
+    const lenspostModel = modelParser.getModelByName(`${appSlug}_lenspublication`);
 
-    const lenscollectionModel = getModelByName(`${appSlug}_lenscollection`);
+    const lenscollectionModel = modelParser.getModelByName(`${appSlug}_lenscollection`);
 
-    const snapshotproposalModel = getModelByName(`${appSlug}_snapshotproposal`);
+    const snapshotproposalModel = modelParser.getModelByName(`${appSlug}_snapshotproposal`);
 
-    const snapshotvoteModel = getModelByName(`${appSlug}_snapshotvote`);
+    const snapshotvoteModel = modelParser.getModelByName(`${appSlug}_snapshotvote`);
 
     if (pushChatMessageModel) {
       const pushChatClient = new PushChatClient({
@@ -108,7 +107,7 @@ function Toolkits() {
           [PushModelType.CHANNEL]: pushChannelModel?.stream_id!,
           [PushModelType.NOTIFICATION]: pushNotificationModel?.stream_id!,
         },
-        appName: output.createDapp.name,
+        appName,
         env: ENV.STAGING,
       });
       pushChatClientRef.current = pushChatClient;
@@ -123,7 +122,7 @@ function Toolkits() {
           [PushModelType.CHANNEL]: pushChannelModel?.stream_id!,
           [PushModelType.NOTIFICATION]: pushNotificationModel?.stream_id!,
         },
-        appName: output.createDapp.name,
+        appName,
         env: ENV.STAGING,
       });
       pushNotificationClientRef.current = pushNotificationClient;

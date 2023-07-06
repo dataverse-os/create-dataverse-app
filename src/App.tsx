@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Currency } from "@dataverse/runtime-connector";
 import { useWallet, useStream } from "./hooks";
 import ReactJson from "react-json-view";
-import { Model, StreamRecord } from "./types";
-import { getModelByName } from "./utils";
+import { StreamRecord } from "./types";
 import { useConfig } from "./context/configContext";
+import { Model } from "@dataverse/model-parser";
 
 function App() {
   const navigate = useNavigate();
-  const { output, appVersion } = useConfig();
+  const { modelParser, appVersion } = useConfig();
   const [postModel, setPostModel] = useState<Model>();
   const [currentStreamId, setCurrentStreamId] = useState<string>();
   const [publicPost, setPublicPost] = useState<StreamRecord>();
@@ -36,9 +36,9 @@ function App() {
   } = useStream();
 
   useEffect(() => {
-    const postModel = getModelByName(`${output.createDapp.slug}_post`);
+    const postModel = modelParser.getModelByName(`${modelParser.appSlug}_post`);
     setPostModel(postModel);
-  }, [output]);
+  }, [modelParser]);
 
   const connect = async () => {
     const { wallet } = await connectWallet();

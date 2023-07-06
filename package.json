@@ -1,12 +1,17 @@
 {
   "name": "create-dataverse-app",
   "version": "1.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
   "type": "module",
   "scripts": {
     "build:scripts": "npx tsc -p tsconfig.node.json",
-    "create-dataverse-app": "pnpm build:scripts && env-cmd -f .env node --experimental-specifier-resolution=node ./scripts/build/scripts/createDapp.js",
-    "dev": "vite",
+    "build:model-parser": "lerna run build --scope=@dataverse/model-parser",
     "build:src": "tsc && vite build && vite preview",
+    "build": "lerna run build && pnpm build:scripts && pnpm build:src",
+    "publish": "pnpm build:scripts && env-cmd -f .env node --experimental-specifier-resolution=node ./scripts/build/scripts/createDapp.js",
+    "dev": "vite",
     "preview": "vite preview"
   },
   "repository": {
@@ -14,20 +19,21 @@
     "url": "git+https://github.com/dataverse-os/create-dataverse-app.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dataverse-os/create-dataverse-app/issues"
   },
   "homepage": "https://github.com/dataverse-os/create-dataverse-app#readme",
   "dependencies": {
     "@composedb/devtools": "^0.4.4",
+    "@dataverse/model-parser": "workspace:*",
+    "@dataverse/lens-client-toolkit": "*",
+    "@dataverse/snapshot-client-toolkit": "*",
     "@dataverse/livepeer-client-toolkit": "^1.0.18",
     "@dataverse/push-client-toolkit": "^1.0.18",
     "@dataverse/runtime-connector": "1.0.59",
     "@dataverse/tableland-client-toolkit": "^1.0.18",
     "@dataverse/xmtp-client-toolkit": "^1.0.18",
-    "@dataverse/lens-client-toolkit": "*",
-    "@dataverse/snapshot-client-toolkit": "*",
     "@livepeer/react": "^2.5.5",
     "buffer": "^6.0.3",
     "chalk": "^4.1.2",
@@ -35,6 +41,7 @@
     "ethers": "5.6.9",
     "graphql": "^16.6.0",
     "graphql-request": "^5.2.0",
+    "lerna": "^7.1.1",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -1,17 +1,20 @@
 import React, { ReactNode, createContext, useContext } from "react";
 import { Extension, RuntimeConnector } from "@dataverse/runtime-connector";
-import { Model, Output } from "../types";
-import { getOutput } from "../utils/model";
+// import { Model, Output } from "../types";
+// import { getOutput } from "../utils/model";
+import { ModelParser, Output } from "@dataverse/model-parser";
+import app from "../../output/app.json";
 
 interface ContextType {
   runtimeConnector: RuntimeConnector;
   appVersion: string;
-  output: Output;
+  modelParser: ModelParser;
 }
 
 const runtimeConnector = new RuntimeConnector(Extension);
 const appVersion = "0.0.1";
-const output = getOutput();
+// const output = getOutput();
+const modelParser = new ModelParser(app as Output);
 
 const ConfigContext = createContext<ContextType>({} as ContextType);
 
@@ -21,7 +24,7 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
       value={{
         runtimeConnector,
         appVersion,
-        output,
+        modelParser,
       }}
     >
       {children}
