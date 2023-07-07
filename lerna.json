@@ -5,9 +5,7 @@
     "packages/*"
   ],
   "npmClient": "pnpm",
-  "ignore": [
-    "create-dataverse-app"
-  ],
+  "ignore": [],
   "command": {
     "publish": {
       "gitTagVersion": false
