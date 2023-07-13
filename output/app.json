@@ -1,104 +1,249 @@
 {
-  "createDapp": {
-    "id": "d4b8cea6-0a6c-4637-9721-80c5dba0958e",
-    "streamIDs": [
-      {
-        "name": "toolkits_test0019_xmtpkeycache",
-        "stream_id": "kjzl6hvfrbw6c8v4w4yjfiyfux13caphp037kvk615dtju98r871zcd95mm136r",
-        "isPublicDomain": false,
-        "encryptable": ["keys"]
-      },
-      {
-        "name": "toolkits_test0019_lenscollection",
-        "stream_id": "kjzl6hvfrbw6c932jp0r3l2b2z6gvs6fm4zm9tahn4m3bki2nk2jhdxgp4f1l95",
-        "isPublicDomain": false,
-        "encryptable": []
-      },
-      {
-        "name": "toolkits_test0019_profile",
-        "stream_id": "kjzl6hvfrbw6c8d7pf74mtoldodph0vjs8ulvw9ixdvscu3h2ab6vs6h82b3i1z",
-        "isPublicDomain": true,
-        "encryptable": null
-      },
-      {
-        "name": "toolkits_test0019_indexFolders",
-        "stream_id": "kjzl6hvfrbw6c7lhqboqtiylol1etl76gur651mc0mcpa0f05plpp3cc1q7atcg",
-        "isPublicDomain": false,
-        "encryptable": null
-      },
-      {
-        "name": "toolkits_test0019_table",
-        "stream_id": "kjzl6hvfrbw6c72bs13nw3huwu2qb9l6sh376nu3v1gtltivb202tw1cossla5y",
-        "isPublicDomain": false,
-        "encryptable": []
-      },
-      {
-        "name": "toolkits_test0019_lenspublication",
-        "stream_id": "kjzl6hvfrbw6c5eou3evdi1y5vjvdjnz9eugtisgboctstbf5gg6vbzoqgvxg2g",
-        "isPublicDomain": false,
-        "encryptable": []
-      },
-      {
-        "name": "toolkits_test0019_pushnotification",
-        "stream_id": "kjzl6hvfrbw6cb7uujlgwqibg6eo9jvji1gj5e80xag37uld0vvded1lvwmbq3z",
-        "isPublicDomain": false,
-        "encryptable": []
-      },
-      {
-        "name": "toolkits_test0019_post",
-        "stream_id": "kjzl6hvfrbw6c73naljdqfju38szxm4jlfiw1k7z3cuj20m7l3ykpzrh46w49hp",
-        "isPublicDomain": false,
-        "encryptable": ["text", "images", "videos"]
-      },
-      {
-        "name": "toolkits_test0019_pushchannel",
-        "stream_id": "kjzl6hvfrbw6c6gk8pvxj2ppqfztfbnpa56n0ievegb4uqbayuhk3l86gawo1mb",
-        "isPublicDomain": false,
-        "encryptable": []
-      },
-      {
-        "name": "toolkits_test0019_pushchatmessage",
-        "stream_id": "kjzl6hvfrbw6cajika69lmq86asmwvf9utk4rmdxs8e45wi7odllq0jhrka1x9a",
-        "isPublicDomain": false,
-        "encryptable": ["link", "cid"]
-      },
-      {
-        "name": "toolkits_test0019_indexFiles",
-        "stream_id": "kjzl6hvfrbw6c64hptaqmfo05qdc94ba7ara6zafu8mqrtlxgwzgdtikoi5osss",
-        "isPublicDomain": false,
-        "encryptable": null
-      },
-      {
-        "name": "toolkits_test0019_contentFolders",
-        "stream_id": "kjzl6hvfrbw6c726fft1po1b4ny1n3osn5ro59f28l9tef59iucmtvuzwhxiua5",
-        "isPublicDomain": false,
-        "encryptable": null
-      },
-      {
-        "name": "toolkits_test0019_pushchatgpgkey",
-        "stream_id": "kjzl6hvfrbw6c5uoeeo683pox2vv9cagto601qdw8h1e1nmino5lkdf9siyeged",
-        "isPublicDomain": false,
-        "encryptable": ["pgp_key"]
-      },
-      {
-        "name": "toolkits_test0019_xmtpmessage",
-        "stream_id": "kjzl6hvfrbw6c8cohf4apwss84psxqsuyogivntcosr9j0kh25gh2lhd7vk5o3q",
-        "isPublicDomain": false,
-        "encryptable": ["content"]
-      },
-      {
-        "name": "toolkits_test0019_livepeerasset",
-        "stream_id": "kjzl6hvfrbw6c7wjst3piuxfh9hbd784g5ravpqs8yyixx8odt82msos96l8cwj",
-        "isPublicDomain": false,
-        "encryptable": ["storage", "playback_id"]
-      }
-    ],
-    "website": "",
-    "name": "toolkits_test0019",
-    "slug": "toolkits_test0019",
-    "logo": "http://no-logo.com",
-    "description": "",
-    "defaultFolderName": "Untitled",
-    "ceramic": "https://local1.dataverseceramicdaemon.com"
-  }
+  "id": "b8f44ab4-54ed-461f-94aa-43a409df236d",
+  "createdAt": 1689219928,
+  "updatedAt": 1689219928,
+  "deletedAt": null,
+  "name": "dataverse_app_example_updated",
+  "logo": "https://github.com/dataverse-os/runtime-connector/raw/main/logo.svg",
+  "website": ["https://dataverse-os.com"],
+  "defaultFolderName": "Main",
+  "description": "This is dataverse app example.",
+  "models": [
+    {
+      "modelName": "post",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c5pqsxokive6ve3g8ztvolhh0kre18lvmau0iup0x43vo7euqqi",
+          "createdAt": 0,
+          "schema": "type post @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | post\") {\n  author: DID! @documentAccount\n  version: CommitID! @documentVersion\n  appVersion: String! @string(maxLength: 100)\n  text: String @string(maxLength: 300000000)\n  images: [String] @list(maxLength: 10000000) @string(maxLength: 2000000)\n  videos: [String] @list(maxLength: 10000000) @string(maxLength: 2000000)\n  options: String @string(maxLength: 300000000)\n  createdAt: DateTime!\n  updatedAt: DateTime!\n  encrypted: String @string(maxLength: 300000000)\n}",
+          "isPublicDomain": false,
+          "encryptable": ["text", "images", "videos"],
+          "version": 0,
+          "latest": false
+        },
+        {
+          "modelId": "kjzl6hvfrbw6cb295e0vqwma6j36o53w2y19egsk8mw7ya19v7tgarwb48nhps5",
+          "createdAt": 0,
+          "schema": "type post @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | post\") {\n  author: DID! @documentAccount\n  version: CommitID! @documentVersion\n  appVersion: String! @string(maxLength: 100)\n  text: String @string(maxLength: 300000000)\n  images: [String] @list(maxLength: 10000000) @string(maxLength: 2000000)\n  videos: [String] @list(maxLength: 10000000) @string(maxLength: 2000000)\n  options: String @string(maxLength: 300000000)\n  createdAt: DateTime!\n  updatedAt: DateTime!\n  test: String! @string(maxLength: 100)\n  encrypted: String @string(maxLength: 300000000)\n}",
+          "isPublicDomain": false,
+          "encryptable": ["text", "images", "videos"],
+          "version": 1,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "profile",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c69e1az9fqtvi9sdm94lqe7z03znv3f4df4uvgswttivpprv8kz",
+          "createdAt": 0,
+          "schema": "type profile @createModel(accountRelation: SINGLE, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | profile\") {\n  author: DID! @documentAccount\n  version: CommitID! @documentVersion\n  name: String! @string(maxLength: 100)\n  description: String! @string(maxLength: 10000)\n  image: String! @string(maxLength: 1000)\n  background: String! @string(maxLength: 1000)\n}",
+          "isPublicDomain": true,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "contentFolders",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c95lp7o0ikdljelskocdriaf6240p3imwkv5b37gkidxh9sul8n",
+          "createdAt": 0,
+          "schema": "type contentFolders @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | ContentFolder\") {\n  author: DID! @documentAccount\n  version: CommitID! @documentVersion\n  indexFolderId: String! @string(maxLength: 1000)\n  mirrors: String! @string(maxLength: 300000000)\n}",
+          "isPublicDomain": false,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "indexFiles",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c8g5iebn88ylopfzwz7brm58hfikxvhepgtb3d9lc3nda9vlfhg",
+          "createdAt": 0,
+          "schema": "type indexFiles @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | IndexFile\") {\n  author: DID! @documentAccount\n  version: CommitID! @documentVersion\n  appVersion: String! @string(maxLength: 100)\n  contentId: String! @string(maxLength: 1000)\n  contentType: String! @string(maxLength: 100)\n  comment: String! @string(maxLength: 300000000)\n  relation: String @string(maxLength: 300000000)\n  additional: String @string(maxLength: 300000000)\n  datatokenId: String @string(maxLength: 1000)\n  fileType: Int!\n  encryptedSymmetricKey: String @string(maxLength: 300000000)\n  decryptionConditions: String @string(maxLength: 300000000)\n  decryptionConditionsType: String @string(maxLength: 100)\n  createdAt: DateTime!\n  updatedAt: DateTime!\n  deleted: Boolean\n}",
+          "isPublicDomain": false,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "indexFolders",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c963leypsruh2vjsegxve92e1y94pd2k9sr2biifl1aklf1rbeb",
+          "createdAt": 0,
+          "schema": "type indexFolders @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | IndexFolder\") {\n  author: DID! @documentAccount\n  version: CommitID! @documentVersion\n  appVersion: String! @string(maxLength: 100)\n  folderType: Int!\n  contentFolderIds: [String!]! @list(minLength: 1, maxLength: 10000) @string(maxLength: 2000)\n  createdAt: DateTime!\n  updatedAt: DateTime!\n  options: String @string(maxLength: 300000000)\n  parentFolderId: String @string(maxLength: 1000)\n  childFolderIds: [String] @list(maxLength: 10000) @string(maxLength: 2000)\n  deleted: Boolean\n}",
+          "isPublicDomain": false,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "pushchannel",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c7oryas539r7k7dtw7qkpmp1mqc7vzrq13rnzwohzg0wqctjbw2",
+          "createdAt": 0,
+          "schema": "type pushchannel @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | pushchannel\") {\n  channel_owner: DID! @documentAccount\n  channel_id: Int\n  channel: String! @string(maxLength: 2000000)\n  ipfshash: CID!\n  name: String @string(maxLength: 2000000)\n  info: String @string(maxLength: 2000000)\n  url: String @string(maxLength: 2000000)\n  icon: String @string(maxLength: 2000000)\n  processed: Int\n  attempts: Int\n  alias_address: String @string(maxLength: 2000000)\n  alias_verification_event: String @string(maxLength: 2000000)\n  is_alias_verified: Int\n  alias_blockchain_id: String @string(maxLength: 2000000)\n  activation_status: Int\n  verified_status: Int\n  timestamp: DateTime\n  blocked: Int\n  counter: Int\n  subgraph_details: String @string(maxLength: 2000000)\n  subgraph_attempts: Int\n}",
+          "isPublicDomain": false,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "pushchatmessage",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c8334dzyo5996pe4e4x6hvpfdvwf0bu4erf761ijoa3wnvumiau",
+          "createdAt": 0,
+          "schema": "type pushchatmessage @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | pushchatmessage\") {\n  keeper: DID! @documentAccount\n  from: DID! @accountReference\n  to: DID! @accountReference\n  from_CAIP10: String! @string(maxLength: 100)\n  to_CAIP10: String! @string(maxLength: 100)\n  from_DID: String! @string(maxLength: 100)\n  to_DID: String! @string(maxLength: 100)\n  message_Content: String! @string(maxLength: 300000000)\n  message_type: String! @string(maxLength: 100)\n  signature: String! @string(maxLength: 300000000)\n  timestamp: Int!\n  sig_type: String! @string(maxLength: 100)\n  enc_type: String! @string(maxLength: 100)\n  encrypted_secret: String! @string(maxLength: 300000000)\n  link: String @string(maxLength: 200000)\n  cid: String @string(maxLength: 200000)\n  encrypted: String @string(maxLength: 300000000)\n}",
+          "isPublicDomain": false,
+          "encryptable": ["link", "cid"],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "pushnotification",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c6k6rhsiob152u81fz5xrykmv95kvxd46ylnkwiahzw9x0i3p7w",
+          "createdAt": 0,
+          "schema": "type pushnotification @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | pushnotification\") {\n  channel_owner: DID! @documentAccount\n  recipient: [DID] @list(maxLength: 2000000)\n  channel: String! @string(maxLength: 2000000)\n  cta: String @string(maxLength: 2000000)\n  title: String @string(maxLength: 2000000)\n  message: String @string(maxLength: 300000000)\n  icon: String @string(maxLength: 2000000)\n  url: String @string(maxLength: 2000000)\n  sid: String @string(maxLength: 2000000)\n  app: String @string(maxLength: 2000000)\n  image: String @string(maxLength: 2000000)\n  blockchain: String @string(maxLength: 2000000)\n  notification_body: String! @string(maxLength: 300000000)\n  notification_title: String! @string(maxLength: 2000000)\n  secret: String @string(maxLength: 300000000)\n  createdAt: DateTime!\n}",
+          "isPublicDomain": false,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "pushchatgpgkey",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6cal8z8lfrankcutvdd83wqy4v6qbwn6c7qyxn05pd4d3tt2j7z5",
+          "createdAt": 0,
+          "schema": "type pushchatgpgkey @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | pushchatgpgkey\") {\n  owner: DID! @documentAccount\n  pgp_key: String! @string(maxLength: 300000000)\n  encrypted: String @string(maxLength: 300000000)\n}",
+          "isPublicDomain": false,
+          "encryptable": ["pgp_key"],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "livepeerasset",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c561cp9qb4a562t9f25aanfdu9pkmyxas93a4y7bilrpbdbbglv",
+          "createdAt": 0,
+          "schema": "type livepeerasset @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | livepeerasset\") {\n  owner: DID! @documentAccount\n  asset_id: String @string(maxLength: 300000000)\n  name: String @string(maxLength: 300000000)\n  source_type: String @string(maxLength: 300000000)\n  status_phase: String @string(maxLength: 300000000)\n  status_updated_at: Int\n  user_id: String @string(maxLength: 300000000)\n  storage: String @string(maxLength: 300000000)\n  created_at: Int\n  playback_id: String @string(maxLength: 300000000)\n  encrypted: String @string(maxLength: 300000000)\n}",
+          "isPublicDomain": false,
+          "encryptable": ["storage", "playback_id"],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "table",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c6qqy6stumklsajdxrzhfho8cqvp29yctiqhhktso3adbzestm1",
+          "createdAt": 0,
+          "schema": "type table @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | table\") {\n  owner: DID! @documentAccount\n  tableId: String! @string(maxLength: 200000)\n  table_name: String! @string(maxLength: 200000)\n  create_sql: String! @string(maxLength: 300000000)\n  chainId: Int!\n  columns: String! @string(maxLength: 300000000)\n  created_at: DateTime!\n}",
+          "isPublicDomain": false,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "xmtpmessage",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6catrq6rwykk9vm001htssr070g7yiuy6nfm41o5cxxq360sr0w0",
+          "createdAt": 0,
+          "schema": "type xmtpmessage @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | xmtp message\") {\n  keeper: DID! @documentAccount\n  sender_address: String @string(maxLength: 100)\n  recipient_address: String @string(maxLength: 100)\n  content: String @string(maxLength: 30000000)\n  content_topic: String @string(maxLength: 30000000)\n  content_type: String @string(maxLength: 30000000)\n  message_id: String @string(maxLength: 2000000)\n  message_version: String @string(maxLength: 100)\n  created_at: DateTime\n  encrypted: String @string(maxLength: 300000000)\n}",
+          "isPublicDomain": false,
+          "encryptable": ["content"],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "xmtpkeycache",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c8ltgdiag2s5mt8s2eu4mn24f39sfalc8r1k327t8pci188h71x",
+          "createdAt": 0,
+          "schema": "type xmtpkeycache @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | xmtp key cache\") {\n  owner: DID! @documentAccount\n  keys: String! @string(maxLength: 30000000)\n  encrypted: String @string(maxLength: 300000000)\n}",
+          "isPublicDomain": false,
+          "encryptable": ["keys"],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "lenspublication",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6cauoy0mahr3w7vny74fxwo3ftlgppnz0147nx447v5zyciicbxy",
+          "createdAt": 0,
+          "schema": "type lenspublication @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | lenspublication\") {\n  owner: DID! @documentAccount\n  publication_type: String! @string(maxLength: 100)\n  profile_id: String! @string(maxLength: 100)\n  pub_id: String! @string(maxLength: 100)\n  model_id: String @string(maxLength: 100)\n  profile_id_pointed: String @string(maxLength: 100)\n  pub_id_pointed: String @string(maxLength: 100)\n  content_uri: String @string(maxLength: 10000)\n  collect_module: String @string(maxLength: 100)\n  reference_module: String! @string(maxLength: 100)\n  created_at: Int!\n}",
+          "isPublicDomain": false,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    },
+    {
+      "modelName": "lenscollection",
+      "internal": false,
+      "streams": [
+        {
+          "modelId": "kjzl6hvfrbw6c5rsw89qow52cvhraf7e1k01flma6z6g63d7f5l4vowsasxwnzs",
+          "createdAt": 0,
+          "schema": "type lenscollection @createModel(accountRelation: LIST, description: \"Dataverse:b8f44ab4-54ed-461f-94aa-43a409df236d | lenscollection\") {\n  owner: DID! @documentAccount\n  profile_id: String! @string(maxLength: 100)\n  pub_id: String! @string(maxLength: 100)\n  model_id: String! @string(maxLength: 100)\n  stream_id: String! @string(maxLength: 100)\n  collector: String! @string(maxLength: 100)\n  currency: String! @string(maxLength: 100)\n  amount: String! @string(maxLength: 100)\n  collect_limit: String! @string(maxLength: 100)\n  collect_nft: String! @string(maxLength: 100)\n  collected_at: Int!\n}",
+          "isPublicDomain": false,
+          "encryptable": [],
+          "version": 0,
+          "latest": true
+        }
+      ]
+    }
+  ],
+  "address": "0x13a6D1fe418de7e5B03Fb4a15352DfeA3249eAA4",
+  "ceramic": "https://testnet.dataverseceramicdaemon.com"
 }

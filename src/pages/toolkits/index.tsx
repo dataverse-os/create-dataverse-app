@@ -69,34 +69,33 @@ function Toolkits() {
 
   useEffect(() => {
     const appName = modelParser.appName;
-    const appSlug = modelParser.appSlug;
 
-    const postModel = modelParser.getModelByName(`${appSlug}_post`);
+    const postModel = modelParser.getModelByName("post");
     setPostModel(postModel);
 
-    const pushChatMessageModel = modelParser.getModelByName(`${appSlug}_pushchatmessage`);
+    const pushChatMessageModel = modelParser.getModelByName("pushchatmessage");
 
-    const pushChannelModel = modelParser.getModelByName(`${appSlug}_pushchannel`);
+    const pushChannelModel = modelParser.getModelByName("pushchannel");
 
-    const pushChatGPGKeyModel = modelParser.getModelByName(`${appSlug}_pushchatgpgkey`);
+    const pushChatGPGKeyModel = modelParser.getModelByName("pushchatgpgkey");
 
-    const pushNotificationModel = modelParser.getModelByName(`${appSlug}_pushnotification`);
+    const pushNotificationModel = modelParser.getModelByName("pushnotification");
 
-    const livepeerModel = modelParser.getModelByName(`${appSlug}_livepeerasset`);
+    const livepeerModel = modelParser.getModelByName("livepeerasset");
 
-    const tablelandModel = modelParser.getModelByName(`${appSlug}_table`);
+    const tablelandModel = modelParser.getModelByName("table");
 
-    const xmtpkeycacheModel = modelParser.getModelByName(`${appSlug}_xmtpkeycache`);
+    const xmtpkeycacheModel = modelParser.getModelByName("xmtpkeycache");
 
-    const xmtpmessageModel = modelParser.getModelByName(`${appSlug}_xmtpmessage`);
+    const xmtpmessageModel = modelParser.getModelByName("xmtpmessage");
 
-    const lenspostModel = modelParser.getModelByName(`${appSlug}_lenspublication`);
+    const lenspostModel = modelParser.getModelByName("lenspublication");
 
-    const lenscollectionModel = modelParser.getModelByName(`${appSlug}_lenscollection`);
+    const lenscollectionModel = modelParser.getModelByName("lenscollection");
 
-    const snapshotproposalModel = modelParser.getModelByName(`${appSlug}_snapshotproposal`);
+    const snapshotproposalModel = modelParser.getModelByName("snapshotproposal");
 
-    const snapshotvoteModel = modelParser.getModelByName(`${appSlug}_snapshotvote`);
+    const snapshotvoteModel = modelParser.getModelByName("snapshotvote");
 
     if (pushChatMessageModel) {
       const pushChatClient = new PushChatClient({

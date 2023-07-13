@@ -36,7 +36,7 @@ function App() {
   } = useStream();
 
   useEffect(() => {
-    const postModel = modelParser.getModelByName(`${modelParser.appSlug}_post`);
+    const postModel = modelParser.getModelByName("post");
     setPostModel(postModel);
   }, [modelParser]);
 

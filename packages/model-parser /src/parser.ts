@@ -11,16 +11,12 @@ export class ModelParser {
   }
 
   get appName() {
-    return this._output.createDapp.name;
-  }
-
-  get appSlug() {
-    return this._output.createDapp.slug;
+    return this._output.name;
   }
 
   public getModelByName(modelName: string) {
-    return this._output.createDapp.streamIDs.find(
-      (model) => model.name === modelName
+    return this._output.models.find(
+      (model) => model.modelName === modelName
     ) as Model;
   }
 }

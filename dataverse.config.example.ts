@@ -1,10 +1,9 @@
 export const config = {
-  slug: "toolkits_test007", // app id, need to match this regular: `^[a-zA-Z][a-zA-Z0-9_]*$`
-  name: "toolkits_test007", // app name should NOT contain "-"
-  logo: "http://no-logo.com",
-  website: "", // you can use localhost:(port) for testing
-  defaultFolderName: "Untitled",
-  description: "",
+  name: "dataverse_app_example", // app name should NOT contain "-"
+  logo: "https://github.com/dataverse-os/runtime-connector/raw/main/logo.svg",
+  website: ["https://dataverse-os.com"], // you can use localhost:(port) for testing
+  defaultFolderName: "Main",
+  description: "This is dataverse app example.",
   models: [
     {
       isPublicDomain: false, // default
@@ -14,6 +13,7 @@ export const config = {
     {
       isPublicDomain: true,
       schemaName: "profile.graphql",
+      encryptable: [],
     },
     {
       isPublicDomain: false,
