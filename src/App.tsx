@@ -80,7 +80,7 @@ function App() {
 
     const date = new Date().toISOString();
     const { streamId, ...streamRecord } = await createEncryptedStream({
-      model: postModel,
+      modelId: postModel.streams[postModel.streams.length - 1].modelId,
       stream: {
         appVersion,
         text: "hello",
@@ -111,7 +111,7 @@ function App() {
     const date = new Date().toISOString();
     const { streamId, ...streamRecord } = await createPayableStream({
       pkh,
-      model: postModel,
+      modelId: postModel.streams[postModel.streams.length - 1].modelId,
       stream: {
         appVersion,
         text: "metaverse",

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {
   FileType,
   Currency,
@@ -7,12 +7,13 @@ import {
   DecryptionConditions,
 } from "@dataverse/runtime-connector";
 import { useConfig } from "../context/configContext";
-import { Model, StreamsRecord } from "../types";
+import { StreamsRecord } from "../types";
 import { getAddressFromDid } from "../utils";
 import { useUser } from "../context/userContext";
+import { Model } from "@dataverse/model-parser";
 
 export function useStream() {
-  const { runtimeConnector, output } = useConfig();
+  const { runtimeConnector, modelParser } = useConfig();
   const { userInfo, updateUserInfo } = useUser();
   const [streamsRecord, setStreamsRecord] = useState<StreamsRecord>({});
 
@@ -24,7 +25,7 @@ export function useStream() {
   const createCapability = async (wallet: WALLET) => {
     const currentPkh = await runtimeConnector.createCapability({
       wallet,
-      app: output.createDapp.name,
+      app: modelParser.appName,
     });
     updateUserInfo({ pkh: currentPkh });
     return currentPkh;
@@ -60,6 +61,7 @@ export function useStream() {
     model: Model;
     stream?: object;
   }) => {
+    const modelStream = model.streams[model.streams.length - 1];
     const encrypted = {} as any;
     if (stream && Object.keys(stream).length > 0) {
       Object.keys(stream).forEach((key) => {
@@ -69,14 +71,14 @@ export function useStream() {
 
     const inputStreamContent = {
       ...stream,
-      ...(!model.isPublicDomain &&
+      ...(!modelStream.isPublicDomain &&
         stream && {
           encrypted: JSON.stringify(encrypted),
         }),
     };
     const { pkh, modelId, streamId, streamContent } =
       await runtimeConnector.createStream({
-        modelId: model.stream_id,
+        modelId: modelStream.modelId,
         streamContent: inputStreamContent,
       });
 
@@ -93,12 +95,12 @@ export function useStream() {
   };
 
   const createEncryptedStream = async ({
-    model,
+    modelId,
     stream,
     encrypted,
     requireUpdateStreamRecord = true,
   }: {
-    model: Model;
+    modelId: string;
     stream: object;
     encrypted: object;
     requireUpdateStreamRecord?: boolean;
@@ -109,9 +111,9 @@ export function useStream() {
         encrypted: JSON.stringify(encrypted),
       }),
     };
-    const { pkh, modelId, streamId, streamContent } =
+    const { pkh, streamId, streamContent } =
       await runtimeConnector.createStream({
-        modelId: model.stream_id,
+        modelId,
         streamContent: inputStreamContent,
       });
 
@@ -126,7 +128,7 @@ export function useStream() {
       }
       return {
         streamId,
-        app: output.createDapp.name,
+        app: modelParser.appName,
         pkh,
         modelId,
         streamContent,
@@ -138,7 +140,7 @@ export function useStream() {
 
   const createPayableStream = async ({
     pkh,
-    model,
+    modelId,
     profileId,
     stream,
     lensNickName,
@@ -148,7 +150,7 @@ export function useStream() {
     encrypted,
   }: {
     pkh: string;
-    model: Model;
+    modelId: string;
     profileId?: string;
     stream: object;
     lensNickName?: string;
@@ -161,8 +163,8 @@ export function useStream() {
       profileId = await _getProfileId({ pkh, lensNickName });
     }
 
-    const { modelId, streamId, streamContent } = await createEncryptedStream({
-      model,
+    const { streamId, streamContent } = await createEncryptedStream({
+      modelId,
       stream,
       encrypted,
       requireUpdateStreamRecord: false,
@@ -250,10 +252,11 @@ export function useStream() {
     stream: object;
     encrypted?: object;
   }) => {
+    const modelStream = model.streams[model.streams.length - 1];
     try {
       const fileType = streamsRecord[streamId]?.streamContent.fileType;
       if (
-        !model.isPublicDomain &&
+        !modelStream.isPublicDomain &&
         stream &&
         encrypted &&
         fileType === FileType.Public
@@ -350,7 +353,7 @@ export function useStream() {
     );
     if (pkh && modelId) {
       streamsRecordCopy[streamId] = {
-        app: output.createDapp.name,
+        app: modelParser.appName,
         pkh,
         modelId,
         streamContent,
