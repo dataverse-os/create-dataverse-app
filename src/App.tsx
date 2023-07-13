@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Currency } from "@dataverse/runtime-connector";
 import { useWallet, useStream } from "./hooks";
@@ -145,7 +145,7 @@ function App() {
 
     const postRecord = await loadStreams({
       pkh,
-      modelId: postModel.stream_id,
+      modelId: postModel.streams[0].modelId,
     });
     console.log("loadPosts postRecord:", postRecord);
     setPosts(Object.values(postRecord));
@@ -190,7 +190,7 @@ function App() {
     }
     const { streamId, ...streamRecord } = await monetizeStream({
       pkh,
-      modelId: postModel.stream_id,
+      modelId: postModel.streams[0].modelId,
       streamId: currentStreamId,
       lensNickName: "jackieth", //Only supports lower case characters, numbers, must be minimum of 5 length and maximum of 26 length
       currency: Currency.WMATIC,

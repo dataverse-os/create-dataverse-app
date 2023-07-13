@@ -101,10 +101,10 @@ function Toolkits() {
       const pushChatClient = new PushChatClient({
         runtimeConnector,
         modelIds: {
-          [PushModelType.MESSAGE]: pushChatMessageModel?.stream_id!,
-          [PushModelType.USER_PGP_KEY]: pushChatGPGKeyModel?.stream_id!,
-          [PushModelType.CHANNEL]: pushChannelModel?.stream_id!,
-          [PushModelType.NOTIFICATION]: pushNotificationModel?.stream_id!,
+          [PushModelType.MESSAGE]: pushChatMessageModel?.streams[0].modelId!,
+          [PushModelType.USER_PGP_KEY]: pushChatGPGKeyModel?.streams[0].modelId!,
+          [PushModelType.CHANNEL]: pushChannelModel?.streams[0].modelId!,
+          [PushModelType.NOTIFICATION]: pushNotificationModel?.streams[0].modelId!,
         },
         appName,
         env: ENV.STAGING,
@@ -116,10 +116,10 @@ function Toolkits() {
       const pushNotificationClient = new PushNotificationClient({
         runtimeConnector,
         modelIds: {
-          [PushModelType.MESSAGE]: pushChatMessageModel?.stream_id!,
-          [PushModelType.USER_PGP_KEY]: pushChatGPGKeyModel?.stream_id!,
-          [PushModelType.CHANNEL]: pushChannelModel?.stream_id!,
-          [PushModelType.NOTIFICATION]: pushNotificationModel?.stream_id!,
+          [PushModelType.MESSAGE]: pushChatMessageModel?.streams[0].modelId!,
+          [PushModelType.USER_PGP_KEY]: pushChatGPGKeyModel?.streams[0].modelId!,
+          [PushModelType.CHANNEL]: pushChannelModel?.streams[0].modelId!,
+          [PushModelType.NOTIFICATION]: pushNotificationModel?.streams[0].modelId!,
         },
         appName,
         env: ENV.STAGING,
@@ -131,7 +131,7 @@ function Toolkits() {
       const tablelandClient = new TablelandClient({
         runtimeConnector,
         network: Network.MUMBAI,
-        modelId: tablelandModel?.stream_id,
+        modelId: tablelandModel?.streams[0].modelId,
       });
       tablelandClientRef.current = tablelandClient;
     }
@@ -140,7 +140,7 @@ function Toolkits() {
       const livepeerClient = new LivepeerClient({
         apiKey: (import.meta as any).env.VITE_LIVEPEER_API_KEY,
         runtimeConnector,
-        modelId: livepeerModel.stream_id,
+        modelId: livepeerModel.streams[0].modelId,
       });
       livepeerClientRef.current = livepeerClient;
     }
@@ -150,8 +150,8 @@ function Toolkits() {
         runtimeConnector,
         appName,
         modelIds: {
-          [XmtpModelType.MESSAGE]: xmtpmessageModel.stream_id,
-          [XmtpModelType.KEYS_CACHE]: xmtpkeycacheModel.stream_id,
+          [XmtpModelType.MESSAGE]: xmtpmessageModel.streams[0].modelId,
+          [XmtpModelType.KEYS_CACHE]: xmtpkeycacheModel.streams[0].modelId,
         },
         env: "production",
       });
@@ -161,8 +161,8 @@ function Toolkits() {
     if (lenspostModel && lenscollectionModel) {
       const lensClient = new LensClient({
         modelIds: {
-          [LensModelType.Publication]: lenspostModel.stream_id,
-          [LensModelType.Collection]: lenscollectionModel.stream_id,
+          [LensModelType.Publication]: lenspostModel.streams[0].modelId,
+          [LensModelType.Collection]: lenscollectionModel.streams[0].modelId,
         },
         runtimeConnector,
         network: LensNetwork.SandboxMumbaiTestnet,
@@ -171,12 +171,11 @@ function Toolkits() {
     }
 
     if (snapshotproposalModel) {
-      console.log("streamId : ", snapshotproposalModel?.stream_id!, snapshotvoteModel?.stream_id! )
       const snapshotClient = new SnapshotClient({
         runtimeConnector,
         modelIds: {
-          [snapshotModelType.PROPOSAL]: snapshotproposalModel?.stream_id!,
-          [snapshotModelType.VOTE]: snapshotvoteModel?.stream_id!,
+          [snapshotModelType.PROPOSAL]: snapshotproposalModel?.streams[0].modelId!,
+          [snapshotModelType.VOTE]: snapshotvoteModel?.streams[0].modelId!,
         },
         env: SNAP_SHOT_HUB.dev,
       });
@@ -482,7 +481,7 @@ function Toolkits() {
       ["bool"],
       [false]
     ) as any;
-    const modelId = postModel!.stream_id;
+    const modelId = postModel!.streams[0].modelId;
     const stream = {
       appVersion: "1.2.1",
       text: "hello world!",
@@ -533,7 +532,7 @@ function Toolkits() {
       ["bool"],
       [false]
     ) as any;
-    const modelId = postModel!.stream_id;
+    const modelId = postModel!.streams[0].modelId;
     const stream = {
       appVersion: "1.2.1",
       text: "hello world!",

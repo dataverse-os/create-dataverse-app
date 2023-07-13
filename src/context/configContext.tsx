@@ -13,7 +13,6 @@ interface ContextType {
 
 const runtimeConnector = new RuntimeConnector(Extension);
 const appVersion = "0.0.1";
-// const output = getOutput();
 const modelParser = new ModelParser(app as Output);
 
 const ConfigContext = createContext<ContextType>({} as ContextType);

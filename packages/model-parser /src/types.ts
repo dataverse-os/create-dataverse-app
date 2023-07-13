@@ -15,8 +15,8 @@ export interface Model {
 export interface Output {
   id: string;
   createdAt: number;
-  updatedAt: number;
-  deletedAt: number;
+  updatedAt: number | null;
+  deletedAt: number | null;
   name: string;
   logo: string;
   website: string[];
